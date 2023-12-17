@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<div align="center">
+			<form th:action="@{/regist}" th:object="${recipeForm}" method="post">
+			<input type="submit" name="menu_btn" th:value="#{button.menu}"/>
+			<br>
+			<header>
+				<h1 th:text="#{h1.deposit-regist-input}"></h1>
+			</header>
+				<table>
+					<!-- recipeName -->
+					<tr>
+						<td>
+							<span th:text="#{recipeName}"></span>
+						</td>
+						<td><input type="text" th:field="*{recipeName}"/></td>
+					</tr>
+					
+					<!-- ingredientsId -->
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId1}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId1}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId2}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId2}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId3}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId3}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId4}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId4}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId5}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId5}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId6}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId6}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId7}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId7}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId8}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId8}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId9}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId10}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId10}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId11}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId11}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId12}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId12}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId13}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId13}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId14}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId14}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId15}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId15}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId16}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId16}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId17}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId17}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId18}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId18}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId19}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId19}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{ingredientsId20}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsId20}"/></td>
+					</tr>
+					
+					<!-- seasoningId -->
+					<tr>
+						<td>
+							<span th:text="#{seasoningId1}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId1}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId2}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId2}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId3}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId3}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId4}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId4}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId5}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId5}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId6}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId6}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId7}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId7}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId8}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId8}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId9}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId10}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId10}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId11}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId11}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId12}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId12}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId13}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId13}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId14}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId14}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId15}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId15}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId16}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId16}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId17}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId17}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId18}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId18}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId19}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId19}"/></td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{seasoningId20}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningId20}"/></td>
+					</tr>
+					
+					<!-- recipeTimeRequired -->
+					<tr>
+						<td>
+							<span th:text="#{recipeTimeRequired}"></span>
+						</td>
+						<td><input type="text" th:field="*{recipeTimeRequired}"/>分</td>
+					</tr>
+					
+					<!-- recipeMethod -->
+					<tr>
+						<td>
+							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod1}" cols="15" rows="3" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod2}" cols="15" rows="3" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod3}" cols="15" rows="3" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod4}" cols="15" rows="3" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod5}" cols="15" rows="3" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod6}" cols="15" rows="3" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod7}" cols="15" rows="3" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod8}" cols="15" rows="3" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod9}" cols="15" rows="3" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod10}" cols="15" rows="3" maxlength="50"></textarea>
+						</td>
+					</tr>
+					
+				</table>
+			</form>
+		</div>
+	</body>
+</html>
