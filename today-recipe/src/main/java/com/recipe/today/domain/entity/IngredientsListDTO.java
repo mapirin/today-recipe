@@ -11,5 +11,36 @@ public class IngredientsListDTO implements ListDTO {
 	private int ingredientsPriority;
 	/** 食材画像 **/
 	private String indredientsPicPath;
+	
+	public int getIngredientsId() {
+		return ingredientsId;
+	}
+	public void setIngredientsId(int ingredientsId) {
+		this.ingredientsId = ingredientsId;
+	}
+	public String getIngredientsName() {
+		return ingredientsName;
+	}
+	public void setIngredientsName(String ingredientsName) {
+		this.ingredientsName = ingredientsName;
+	}
+	public int getIngredientsType() {
+		return ingredientsType;
+	}
+	public void setIngredientsType(int ingredientsType) {
+		this.ingredientsType = ingredientsType;
+	}
+	public int getIngredientsPriority() {
+		return ingredientsPriority;
+	}
+	public void setIngredientsPriority(int ingredientsPriority) {
+		this.ingredientsPriority = ingredientsPriority;
+	}
+	public String getIndredientsPicPath() {
+		return indredientsPicPath;
+	}
+	public void setIndredientsPicPath(String indredientsPicPath) {
+		this.indredientsPicPath = indredientsPicPath;
+	}
 
 }

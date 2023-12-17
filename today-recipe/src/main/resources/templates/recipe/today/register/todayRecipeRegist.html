@@ -5,22 +5,26 @@
 	</head>
 	<body>
 		<div align="center">
-			<form th:action="@{/regist}" th:object="${recipeForm}" method="post">
-			<input type="submit" name="menu_btn" th:value="#{button.menu}"/>
-			<br>
-			<header>
-				<h1 th:text="#{h1.deposit-regist-input}"></h1>
-			</header>
+			<form th:action="@{/regist}" th:object="${recipeListForm}" method="post">
+				<input type="submit" name="menu_btn" th:value="#{button.menu}"/>
+				<br>
+				<header>
+					<h1 th:text="#{h1.deposit-regist-input}"></h1>
+				</header>
+				
+				<!-- recipeName -->
 				<table>
-					<!-- recipeName -->
 					<tr>
 						<td>
 							<span th:text="#{recipeName}"></span>
 						</td>
 						<td><input type="text" th:field="*{recipeName}"/></td>
 					</tr>
-					
-					<!-- ingredientsId -->
+				</table>
+				<br>
+				
+				<!-- ingredientsId -->
+				<table>
 					<tr>
 						<td>
 							<span th:text="#{ingredientsId1}"></span>
@@ -73,7 +77,7 @@
 						<td>
 							<span th:text="#{ingredientsId9}"></span>
 						</td>
-						<td><input type="text" th:field="*{ingredientsId}"/></td>
+						<td><input type="text" th:field="*{ingredientsId9}"/></td>
 					</tr>
 					<tr>
 						<td>
@@ -141,8 +145,11 @@
 						</td>
 						<td><input type="text" th:field="*{ingredientsId20}"/></td>
 					</tr>
-					
-					<!-- seasoningId -->
+				</table>
+				<br>
+				
+				<!-- seasoningId -->
+				<table>
 					<tr>
 						<td>
 							<span th:text="#{seasoningId1}"></span>
@@ -195,7 +202,7 @@
 						<td>
 							<span th:text="#{seasoningId9}"></span>
 						</td>
-						<td><input type="text" th:field="*{seasoningId}"/></td>
+						<td><input type="text" th:field="*{seasoningId9}"/></td>
 					</tr>
 					<tr>
 						<td>
@@ -263,98 +270,105 @@
 						</td>
 						<td><input type="text" th:field="*{seasoningId20}"/></td>
 					</tr>
-					
-					<!-- recipeTimeRequired -->
+				</table>
+				<br>
+				
+				<!-- recipeTimeRequired -->
+				<table>
 					<tr>
 						<td>
 							<span th:text="#{recipeTimeRequired}"></span>
 						</td>
 						<td><input type="text" th:field="*{recipeTimeRequired}"/>分</td>
 					</tr>
-					
-					<!-- recipeMethod -->
-					<tr>
-						<td>
-							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
-						</td>
-						<td>
-							<textarea th:field="*{recipeMethod1}" cols="15" rows="3" maxlength="50"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
-						</td>
-						<td>
-							<textarea th:field="*{recipeMethod2}" cols="15" rows="3" maxlength="50"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
-						</td>
-						<td>
-							<textarea th:field="*{recipeMethod3}" cols="15" rows="3" maxlength="50"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
-						</td>
-						<td>
-							<textarea th:field="*{recipeMethod4}" cols="15" rows="3" maxlength="50"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
-						</td>
-						<td>
-							<textarea th:field="*{recipeMethod5}" cols="15" rows="3" maxlength="50"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
-						</td>
-						<td>
-							<textarea th:field="*{recipeMethod6}" cols="15" rows="3" maxlength="50"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
-						</td>
-						<td>
-							<textarea th:field="*{recipeMethod7}" cols="15" rows="3" maxlength="50"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
-						</td>
-						<td>
-							<textarea th:field="*{recipeMethod8}" cols="15" rows="3" maxlength="50"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
-						</td>
-						<td>
-							<textarea th:field="*{recipeMethod9}" cols="15" rows="3" maxlength="50"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span th:text="#{label.deposit-detail}"></span><span th:text="#{label.colon}"></span>
-						</td>
-						<td>
-							<textarea th:field="*{recipeMethod10}" cols="15" rows="3" maxlength="50"></textarea>
-						</td>
-					</tr>
-					
 				</table>
+				<br>
+				
+				<!-- recipeMethod -->
+				<table>
+					<tr>
+						<td>
+							<span th:text="#{recipeMethod1}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod1}" cols="50" rows="1" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{recipeMethod2}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod2}" cols="50" rows="1" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{recipeMethod3}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod3}" cols="50" rows="1" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{recipeMethod4}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod4}" cols="50" rows="1" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{recipeMethod5}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod5}" cols="50" rows="1" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{recipeMethod6}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod6}" cols="50" rows="1" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{recipeMethod7}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod7}" cols="50" rows="1" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{recipeMethod8}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod8}" cols="50" rows="1" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{recipeMethod9}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod9}" cols="50" rows="1" maxlength="50"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span th:text="#{recipeMethod10}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{recipeMethod10}" cols="50" rows="1" maxlength="50"></textarea>
+						</td>
+					</tr>
+				</table>
+				<br>
+				<input type="submit" name="regist" th:value="#{regist_btn}"/>
 			</form>
 		</div>
 	</body>

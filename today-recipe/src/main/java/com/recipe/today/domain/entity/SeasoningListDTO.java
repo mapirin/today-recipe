@@ -11,4 +11,36 @@ public class SeasoningListDTO implements ListDTO{
 	private int seasoningPriority;
 	/** 調味料画像 **/
 	private String seasoningPicPath;
+	
+	public int getSeasoningId() {
+		return seasoningId;
+	}
+	public void setSeasoningId(int seasoningId) {
+		this.seasoningId = seasoningId;
+	}
+	public String getSeasoningName() {
+		return seasoningName;
+	}
+	public void setSeasoningName(String seasoningName) {
+		this.seasoningName = seasoningName;
+	}
+	public int getSeosoningType() {
+		return seosoningType;
+	}
+	public void setSeosoningType(int seosoningType) {
+		this.seosoningType = seosoningType;
+	}
+	public int getSeasoningPriority() {
+		return seasoningPriority;
+	}
+	public void setSeasoningPriority(int seasoningPriority) {
+		this.seasoningPriority = seasoningPriority;
+	}
+	public String getSeasoningPicPath() {
+		return seasoningPicPath;
+	}
+	public void setSeasoningPicPath(String seasoningPicPath) {
+		this.seasoningPicPath = seasoningPicPath;
+	}
+	
 }

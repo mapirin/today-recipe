@@ -4,12 +4,9 @@ today.domain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.recipe.today.domain.entity.IngredientsListDTO;
 import com.recipe.today.domain.entity.ListDTO;
 import com.recipe.today.domain.entity.RecipeListDTO;
-import com.recipe.today.domain.repository.IngredientsListMapper;
 import com.recipe.today.domain.repository.RecipeListMapper;
-import com.recipe.today.domain.repository.SeasoningListMapper;
 
 @Service
 public class TodayRecipeService {
@@ -24,13 +21,17 @@ public class TodayRecipeService {
 //	private SeasoningListMapper seasoningListMapper;
 
 	/**
+	 * 入力したデータを受け取り、格納し、レシピリストに登録する
 	 * 
 	 * @return
 	 */
 	public boolean insertRecipeList(ListDTO listDTO) {
 		try {
-			
-			recipeListMapper.i(listDTO);
+			// ここでどのリストに対応するか分岐させて、各リストテーブルの各処理を呼び出した法が可読性高い？
+			// 汎用格納メソッドは残しておく
+			// 個別の処理メソッドを作る→レシピリスト、食材リスト、調味料リスト
+			listDTO = storeInputRecipeData(listDTO);
+//			recipeListMapper.i(listDTO);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return false;
@@ -41,20 +42,21 @@ public class TodayRecipeService {
 	}
 	
 	/**
-	 * 
+	 * 受け取った入力値をレシピリストDTOに格納する
 	 * 
 	 * @return 
 	 */
-	private ListDTO storeInputData() {
-		ListDTO listDTO =null;
+	private ListDTO storeInputRecipeData(ListDTO listDTO) {
+		ListDTO listDTOImpl = null;
 		
-		if(1==1) {
-			listDTO = new RecipeListDTO();
-		}else if(2==2) {
-			listDTO = new IngredientsListDTO();
+		if(true) {
+			listDTOImpl = new RecipeListDTO();
+			
+//		}else if(2==2) {
+//			listDTO = new IngredientsListDTO();
 		}
 		
-		return listDTO;
+		return listDTOImpl;
 	}
 	// TODO ログインユーザ確認
 	public boolean getUserInfoTableUserExistCheck(String userName) {
