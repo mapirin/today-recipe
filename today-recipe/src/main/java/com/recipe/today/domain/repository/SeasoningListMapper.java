@@ -1,6 +1,10 @@
 package com.recipe.today.domain.repository;
 
-public class SeasoningListMapper {
+import com.recipe.today.domain.entity.ListDTO;
+
+public interface SeasoningListMapper {
+	
+	public void i(ListDTO listDTO);
 
 //	public Integer userInfoTableSelectId(String userName);
 //

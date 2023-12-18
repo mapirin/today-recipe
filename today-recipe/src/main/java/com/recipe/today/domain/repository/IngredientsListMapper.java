@@ -1,7 +1,10 @@
 package com.recipe.today.domain.repository;
 
-public class IngredientsListMapper {
+import com.recipe.today.domain.entity.ListDTO;
 
+public interface IngredientsListMapper {
+
+	public void i(ListDTO listDTO);
 //	public Integer userInfoTableSelectId(String userName);
 //
 //	public List<DepositInfo> depositInfoTableAllData(String year, String month, Integer userId);

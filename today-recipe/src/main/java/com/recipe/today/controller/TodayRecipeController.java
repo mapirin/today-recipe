@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.recipe.today.common.util.TodayRecipeUtil;
 import com.recipe.today.domain.model.IngredientsListForm;
 import com.recipe.today.domain.model.RecipeListForm;
 import com.recipe.today.domain.service.TodayRecipeService;
@@ -41,10 +42,10 @@ public class TodayRecipeController {
 		return "recipe/today/todayRecipeMenu";
 	}
 	// TODO リダイレクト 登録画面で登録
-	@RequestMapping("")
+	@RequestMapping(value = "regist_exec", params = "menu_btn")
 	public String registExec() {
 		// TODO 入力値受け取り＆値受け渡し処理
-		if(todayRecipeService.insertRecipeList(null)) {
+		if(todayRecipeService.insertListData(null, TodayRecipeUtil.LIST_TYPE_RECIPE)) {
 			return "recipe/today/todayRecipeMenu";
 		}
 		return "recipe/today/todayRecipeMenu";
