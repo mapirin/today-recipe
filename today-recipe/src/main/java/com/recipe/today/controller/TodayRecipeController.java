@@ -45,7 +45,7 @@ public class TodayRecipeController {
 	@RequestMapping(value = "regist_exec", params = "menu_btn")
 	public String registExec() {
 		// TODO 入力値受け取り＆値受け渡し処理
-		if(todayRecipeService.insertListData(null, TodayRecipeUtil.LIST_TYPE_RECIPE)) {
+		if(todayRecipeService.insertExec(null, TodayRecipeUtil.LIST_TYPE_RECIPE)) {
 			return "recipe/today/todayRecipeMenu";
 		}
 		return "recipe/today/todayRecipeMenu";

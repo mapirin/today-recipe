@@ -1,5 +1,6 @@
 package com.recipe.today.domain.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class IngredientsListForm {
+public class IngredientsListForm implements Serializable, ListForm{
 private final static long serialVersionUID=1L;
 	
 	@NotEmpty

@@ -1,6 +1,8 @@
 package com.recipe.today.domain.model;
 
-public class RecipeListForm {
+import java.io.Serializable;
+
+public class RecipeListForm implements Serializable, ListForm{
 	private final static long serialVersionUID=1L;
 	
 //	@NotEmpty

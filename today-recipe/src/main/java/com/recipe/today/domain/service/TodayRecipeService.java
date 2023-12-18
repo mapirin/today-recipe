@@ -1,6 +1,6 @@
-package com.recipe.
-today.domain.service;
+package com.recipe.today.domain.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +9,7 @@ import com.recipe.today.domain.entity.IngredientsListDTO;
 import com.recipe.today.domain.entity.ListDTO;
 import com.recipe.today.domain.entity.RecipeListDTO;
 import com.recipe.today.domain.entity.SeasoningListDTO;
+import com.recipe.today.domain.model.ListForm;
 import com.recipe.today.domain.repository.IngredientsListMapper;
 import com.recipe.today.domain.repository.RecipeListMapper;
 import com.recipe.today.domain.repository.SeasoningListMapper;
@@ -26,48 +27,72 @@ public class TodayRecipeService {
 	private SeasoningListMapper seasoningListMapper;
 
 	/**
-	 * serviceクラスメイン処理
+	 * **serviceクラス登録処理**
 	 * 
-	 */
-	public void exec(ListForm listForm, int listType) {
-		insertListData(listForm, listType)
-	}
-	
-	/**
-	 * 入力したデータを受け取り、格納し、レシピリストに登録する
+	 * 入力データを受け取る
+	 * 受け取ったデータをDTOに格納する
+	 * リストタイプごとに、受け取ったデータを引数にInsert処理を呼び出す
 	 * 
-	 * @param 入力データのコピー
-	 * @param 登録するリストタイプ
-	 * @return
+	 * @return 処理結果
 	 */
-	public boolean insertListData(ListDTO listDTO, int listType) {
-		try {
-			// ここでどのリストに対応するか分岐させて、各リストテーブルの各処理を呼び出した法が可読性高い？
-			// 汎用格納メソッドは残しておく
-			// 個別の処理メソッドを作る→レシピリスト、食材リスト、調味料リスト
-			// 入力データをコントローラ側で取得後、別メソッドでFormからDTOにコピーする
-			// つまり当該メソッドで再格納処理は不要
-			switch(listType) {
-				case TodayRecipeUtil.LIST_TYPE_RECIPE:
-					recipeListMapper.i(listDTO);
-					break;
-				case TodayRecipeUtil.LIST_TYPE_INGREDIENTS:
-					ingredientsListMapper.i(listDTO);
-					break;
-				case TodayRecipeUtil.LIST_TYPE_SEASONING:
-					seasoningListMapper.i(listDTO);
-					break;
-				default:
-					break;
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}finally {
-			//
+	public boolean insertExec(ListForm listForm, int listType) {
+		// 入力データを受け取りDTOに格納する
+		ListDTO listDTO = null;
+		
+		switch(listType) {
+			case TodayRecipeUtil.LIST_TYPE_RECIPE:
+				listDTO = storeRecipeListData(listForm);
+				recipeListMapper.i(listDTO);
+				break;
+			case TodayRecipeUtil.LIST_TYPE_INGREDIENTS:
+				listDTO = storeIngredientsListData(listForm);
+				ingredientsListMapper.i(listDTO);
+				break;
+			case TodayRecipeUtil.LIST_TYPE_SEASONING:
+				listDTO = storeSeasoningListData(listForm);
+				seasoningListMapper.i(listDTO);
+				break;
+			default:
+				return false;
 		}
 		return true;
 	}
+	
+//	/**
+//	 * 入力したデータを受け取り、格納し、レシピリストに登録する
+//	 * 
+//	 * @param 入力データのコピー
+//	 * @param 登録するリストタイプ
+//	 * @return
+//	 */
+//	public boolean insertListData(ListDTO listDTO, int listType) {
+//		try {
+//			// ここでどのリストに対応するか分岐させて、各リストテーブルの各処理を呼び出した法が可読性高い？
+//			// 汎用格納メソッドは残しておく
+//			// 個別の処理メソッドを作る→レシピリスト、食材リスト、調味料リスト
+//			// 入力データをコントローラ側で取得後、別メソッドでFormからDTOにコピーする
+//			// つまり当該メソッドで再格納処理は不要
+//			switch(listType) {
+//				case TodayRecipeUtil.LIST_TYPE_RECIPE:
+//					recipeListMapper.i(listDTO);
+//					break;
+//				case TodayRecipeUtil.LIST_TYPE_INGREDIENTS:
+//					ingredientsListMapper.i(listDTO);
+//					break;
+//				case TodayRecipeUtil.LIST_TYPE_SEASONING:
+//					seasoningListMapper.i(listDTO);
+//					break;
+//				default:
+//					break;
+//			}
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//			return false;
+//		}finally {
+//			//
+//		}
+//		return true;
+//	}
 
 	/**
 	 * 受け取った入力値をレシピリストDTOに格納する
@@ -75,10 +100,10 @@ public class TodayRecipeService {
 	 * @param 入力レシピリスト
 	 * @return 
 	 */
-	private ListDTO storeRecipeListData(ListDTO listDTO) {
-		ListDTO listDTOImpl =  new RecipeListDTO();
-			
-		return listDTOImpl;
+	private ListDTO storeRecipeListData(ListForm listForm) {
+		ListDTO listDTO =  new RecipeListDTO();
+		BeanUtils.copyProperties(listForm, listDTO);
+		return listDTO;
 	}
 	
 	/**
@@ -87,10 +112,10 @@ public class TodayRecipeService {
 	 * @param 入力調味料リスト
 	 * @return 
 	 */
-	private ListDTO storeIngredientsListData(ListDTO listDTO) {
-		ListDTO listDTOImpl = new IngredientsListDTO();
-			
-		return listDTOImpl;
+	private ListDTO storeIngredientsListData(ListForm listForm) {
+		ListDTO listDTO = new IngredientsListDTO();
+		BeanUtils.copyProperties(listForm, listDTO);
+		return listDTO;
 	}
 	
 	/**
@@ -99,10 +124,10 @@ public class TodayRecipeService {
 	 * @param 入力調味料リスト
 	 * @return 
 	 */
-	private ListDTO storeSeasoningListData(ListDTO listDTO) {
-		ListDTO listDTOImpl = new SeasoningListDTO();
-		
-		return listDTOImpl;
+	private ListDTO storeSeasoningListData(ListForm listForm) {
+		ListDTO listDTO = new SeasoningListDTO();
+		BeanUtils.copyProperties(listForm, listDTO);
+		return listDTO;
 	}
 	
 	// TODO ログインユーザ確認
