@@ -3,6 +3,7 @@ package com.recipe.today.domain.service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.recipe.today.common.util.TodayRecipeUtil;
 import com.recipe.today.domain.entity.IngredientsListDTO;
@@ -35,6 +36,7 @@ public class TodayRecipeService {
 	 * 
 	 * @return 処理結果
 	 */
+	@Transactional
 	public boolean insertExec(ListForm listForm, int listType) {
 		// 入力データを受け取りDTOに格納する
 		ListDTO listDTO = null;
@@ -46,7 +48,7 @@ public class TodayRecipeService {
 				break;
 			case TodayRecipeUtil.LIST_TYPE_INGREDIENTS:
 				listDTO = storeIngredientsListData(listForm);
-				ingredientsListMapper.i(listDTO);
+				listDTO = ingredientsListMapper.i(listDTO);
 				break;
 			case TodayRecipeUtil.LIST_TYPE_SEASONING:
 				listDTO = storeSeasoningListData(listForm);
@@ -57,42 +59,6 @@ public class TodayRecipeService {
 		}
 		return true;
 	}
-	
-//	/**
-//	 * 入力したデータを受け取り、格納し、レシピリストに登録する
-//	 * 
-//	 * @param 入力データのコピー
-//	 * @param 登録するリストタイプ
-//	 * @return
-//	 */
-//	public boolean insertListData(ListDTO listDTO, int listType) {
-//		try {
-//			// ここでどのリストに対応するか分岐させて、各リストテーブルの各処理を呼び出した法が可読性高い？
-//			// 汎用格納メソッドは残しておく
-//			// 個別の処理メソッドを作る→レシピリスト、食材リスト、調味料リスト
-//			// 入力データをコントローラ側で取得後、別メソッドでFormからDTOにコピーする
-//			// つまり当該メソッドで再格納処理は不要
-//			switch(listType) {
-//				case TodayRecipeUtil.LIST_TYPE_RECIPE:
-//					recipeListMapper.i(listDTO);
-//					break;
-//				case TodayRecipeUtil.LIST_TYPE_INGREDIENTS:
-//					ingredientsListMapper.i(listDTO);
-//					break;
-//				case TodayRecipeUtil.LIST_TYPE_SEASONING:
-//					seasoningListMapper.i(listDTO);
-//					break;
-//				default:
-//					break;
-//			}
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//			return false;
-//		}finally {
-//			//
-//		}
-//		return true;
-//	}
 
 	/**
 	 * 受け取った入力値をレシピリストDTOに格納する

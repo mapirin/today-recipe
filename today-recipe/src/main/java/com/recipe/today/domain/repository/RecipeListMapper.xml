@@ -3,6 +3,10 @@
 		"-//mybatis.org//DTD MApper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.recipe.today.domain.repository.RecipeListMapper">
-	
-	
+	<insert id="i">
+		INSERT INTO
+			
+		INTO
+			(#{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, #{}, );
+	</insert>
 </mapper>
