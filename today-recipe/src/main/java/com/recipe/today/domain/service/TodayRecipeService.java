@@ -11,21 +11,21 @@ import com.recipe.today.domain.entity.ListDTO;
 import com.recipe.today.domain.entity.RecipeListDTO;
 import com.recipe.today.domain.entity.SeasoningListDTO;
 import com.recipe.today.domain.model.ListForm;
-import com.recipe.today.domain.repository.IngredientsListMapper;
-import com.recipe.today.domain.repository.RecipeListMapper;
-import com.recipe.today.domain.repository.SeasoningListMapper;
+import com.recipe.today.domain.repository.IngredientsListRepository;
+import com.recipe.today.domain.repository.RecipeListRepository;
+import com.recipe.today.domain.repository.SeasoningListRepository;
 
 @Service
 public class TodayRecipeService {
 
 	@Autowired
-	private RecipeListMapper recipeListMapper;
+	private RecipeListRepository recipeListRepository;
 
 	@Autowired
-	private IngredientsListMapper ingredientsListMapper;
+	private IngredientsListRepository ingredientsListRepository;
 	
 	@Autowired
-	private SeasoningListMapper seasoningListMapper;
+	private SeasoningListRepository seasoningListRepository;
 
 	/**
 	 * **serviceクラス登録処理**
@@ -44,15 +44,15 @@ public class TodayRecipeService {
 		switch(listType) {
 			case TodayRecipeUtil.LIST_TYPE_RECIPE:
 				listDTO = storeRecipeListData(listForm);
-				recipeListMapper.i(listDTO);
+				recipeListRepository.i(listDTO);
 				break;
 			case TodayRecipeUtil.LIST_TYPE_INGREDIENTS:
 				listDTO = storeIngredientsListData(listForm);
-				listDTO = ingredientsListMapper.i(listDTO);
+				listDTO = ingredientsListRepository.i(listDTO);
 				break;
 			case TodayRecipeUtil.LIST_TYPE_SEASONING:
 				listDTO = storeSeasoningListData(listForm);
-				seasoningListMapper.i(listDTO);
+				seasoningListRepository.i(listDTO);
 				break;
 			default:
 				return false;

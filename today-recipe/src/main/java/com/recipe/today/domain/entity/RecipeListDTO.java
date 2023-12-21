@@ -5,6 +5,7 @@ public class RecipeListDTO implements ListDTO {
 	/** **/
 	private int recipeId;
 	private String recipeName;
+	private int recipeTypeId;
 	private int ingredientsId1;
 	private int ingredientsId2;
 	private int ingredientsId3;
@@ -45,8 +46,7 @@ public class RecipeListDTO implements ListDTO {
 	private int seasoningId18;
 	private int seasoningId19;
 	private int seasoningId20;
-	private String recipe_type;
-	private int recipeGrade;
+	private int recipePriority;
 	private int recipeTimeRequired;
 	private String recipeMethod1;
 	private String recipeMethod2;
@@ -71,6 +71,12 @@ public class RecipeListDTO implements ListDTO {
 	}
 	public void setRecipeName(String recipeName) {
 		this.recipeName = recipeName;
+	}
+	public int getRecipeTypeId() {
+		return recipeTypeId;
+	}
+	public void setRecipeTypeId(int recipeTypeId) {
+		this.recipeTypeId = recipeTypeId;
 	}
 	public int getIngredientsId1() {
 		return ingredientsId1;
@@ -312,17 +318,11 @@ public class RecipeListDTO implements ListDTO {
 	public void setSeasoningId20(int seasoningId20) {
 		this.seasoningId20 = seasoningId20;
 	}
-	public String getRecipe_type() {
-		return recipe_type;
+	public int getRecipePriority() {
+		return recipePriority;
 	}
-	public void setRecipe_type(String recipe_type) {
-		this.recipe_type = recipe_type;
-	}
-	public int getRecipeGrade() {
-		return recipeGrade;
-	}
-	public void setRecipeGrade(int recipeGrade) {
-		this.recipeGrade = recipeGrade;
+	public void setRecipePriority(int recipePriority) {
+		this.recipePriority = recipePriority;
 	}
 	public int getRecipeTimeRequired() {
 		return recipeTimeRequired;

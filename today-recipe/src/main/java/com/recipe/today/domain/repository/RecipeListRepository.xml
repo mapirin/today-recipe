@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+		"-//mybatis.org//DTD MApper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recipe.today.domain.repository.RecipeListRepository">
+	<insert id="i">
+		INSERT INTO
+			recipe_id
+			, recipe_name
+			, recipe_type_id
+			, ingredients_id1, ingredients_id2, ingredients_id3, ingredients_id4, ingredients_id5
+			, ingredients_id6, ingredients_id7, ingredients_id8, ingredients_id9, ingredients_id10
+			, ingredients_id11, ingredients_id12, ingredients_id13, ingredients_id14, ingredients_id15
+			, ingredients_id16, ingredients_id17, ingredients_id18, ingredients_id19, ingredients_id20
+			, seasoning_id1, seasoning_id2, seasoning_id3, seasoning_id4, seasoning_id5
+			, seasoning_id6, seasoning_id7, seasoning_id8, seasoning_id9, seasoning_id10
+			, seasoning_id11, seasoning_id12, seasoning_id13, seasoning_id14, seasoning_id15
+			, seasoning_id16, seasoning_id17, seasoning_id18, seasoning_id19, seasoning_id20
+			, recipe_priority
+			, recipe_time_required
+			, recipe_method1, recipe_method2, recipe_method3, recipe_method4, recipe_method5
+			, recipe_method6, recipe_method7, recipe_method8, recipe_method9, recipe_method10
+		INTO
+			(#{recipeId}
+			, #{recipeName}
+			, 0
+			, #{ingredientsId1}, #{ingredientsId2}, #{ingredientsId3}, #{ingredientsId4}, #{ingredientsId5}
+			, #{ingredientsId6}, #{ingredientsId7}, #{ingredientsId8}, #{ingredientsId9}, #{ingredientsId10}
+			, #{ingredientsId11}, #{ingredientsId12}, #{ingredientsId13}, #{ingredientsId14}, #{ingredientsId15}
+			, #{ingredientsId16}, #{ingredientsId17}, #{ingredientsId18}, #{ingredientsId19}, #{ingredientsId20}
+			, #{seasoningId1}, #{seasoningId2}, #{seasoningId3}, #{seasoningId4}, #{seasoningId5}
+			, #{seasoningId6}, #{seasoningId7}, #{seasoningId8}, #{seasoningId9}, #{seasoningId10}
+			, #{seasoningId11}, #{seasoningId12}, #{seasoningId13}, #{seasoningId14}, #{seasoningId15}
+			, #{seasoningId16}, #{seasoningId17}, #{seasoningId18}, #{seasoningId19}, #{seasoningId20}
+			, 0
+			, #{recipeTimeRequired}
+			, #{recipeMethod1}, #{recipeMethod2}, #{recipeMethod3}, #{recipeMethod4}, #{recipeMethod5}
+			, #{recipeMethod6}, #{recipeMethod7}, #{recipeMethod8}, #{recipeMethod9}, #{recipeMethod10}
+	</insert>
+</mapper>
