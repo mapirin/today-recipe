@@ -43,8 +43,8 @@ public class TodayRecipeService {
 		
 		switch(listType) {
 			case TodayRecipeUtil.LIST_TYPE_RECIPE:
-				listDTO = storeRecipeListData(listForm);
-				recipeListRepository.i(listDTO);
+				RecipeListDTO recipeListDTO = storeRecipeListData(listForm);
+				recipeListRepository.i(recipeListDTO);
 				break;
 			case TodayRecipeUtil.LIST_TYPE_INGREDIENTS:
 				listDTO = storeIngredientsListData(listForm);
@@ -66,8 +66,8 @@ public class TodayRecipeService {
 	 * @param 入力レシピリスト
 	 * @return 
 	 */
-	private ListDTO storeRecipeListData(ListForm listForm) {
-		ListDTO listDTO =  new RecipeListDTO();
+	private RecipeListDTO storeRecipeListData(ListForm listForm) {
+		RecipeListDTO listDTO =  new RecipeListDTO();
 		BeanUtils.copyProperties(listForm, listDTO);
 		return listDTO;
 	}

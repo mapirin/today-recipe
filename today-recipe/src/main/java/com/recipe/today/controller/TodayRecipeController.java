@@ -48,7 +48,7 @@ public class TodayRecipeController {
 	}
 
 	// TODO リダイレクト 登録画面で登録
-	@RequestMapping(value = "regist_exec", params = "menu_btn")
+	@RequestMapping(value = "/regist", params = "regist_btn")
 	public String registExec(@ModelAttribute("recipeListForm")RecipeListForm recipeListForm) {
 		// TODO 入力値受け取り＆値受け渡し処理
 		if (todayRecipeService.insertExec(recipeListForm, TodayRecipeUtil.LIST_TYPE_RECIPE)) {
