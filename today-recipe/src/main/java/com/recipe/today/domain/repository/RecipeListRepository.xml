@@ -21,7 +21,7 @@
 				, recipe_time_required
 				, recipe_method1, recipe_method2, recipe_method3, recipe_method4, recipe_method5
 				, recipe_method6, recipe_method7, recipe_method8, recipe_method9, recipe_method10)
-		INTO
+		VALUES
 			(#{recipeId}
 			, #{recipeName}
 			, 0

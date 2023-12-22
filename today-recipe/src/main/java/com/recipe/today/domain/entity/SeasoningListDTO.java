@@ -6,7 +6,7 @@ public class SeasoningListDTO implements ListDTO{
 	/** 調味料名 **/
 	private String seasoningName;
 	//TODO/** 調味料タイプ 1:砂糖, 2:塩, 3:酢, 4:醤油, 5:にんにく, 6:しょうが, 7:マヨネーズ, 8:ケチャップ等 **/
-	private int seosoningType;
+	private int seosoningTypeId;
 	/** 調味料優先度 **/
 	private int seasoningPriority;
 	/** 調味料画像 **/
@@ -24,11 +24,11 @@ public class SeasoningListDTO implements ListDTO{
 	public void setSeasoningName(String seasoningName) {
 		this.seasoningName = seasoningName;
 	}
-	public int getSeosoningType() {
-		return seosoningType;
+	public int getSeosoningTypeId() {
+		return seosoningTypeId;
 	}
-	public void setSeosoningType(int seosoningType) {
-		this.seosoningType = seosoningType;
+	public void setSeosoningTypeId(int seosoningTypeId) {
+		this.seosoningTypeId = seosoningTypeId;
 	}
 	public int getSeasoningPriority() {
 		return seasoningPriority;

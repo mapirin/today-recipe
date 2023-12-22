@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title th:text="#{title.today-recipe-ingredients-regist}"></title>
+	</head>
+	<body>
+		<div align="center">
+			<form th:action="@{/ingredientsRegist}" th:object="${ingredientsListForm}" method="post">
+				<input type="submit" name="menu_btn" th:value="#{button.menu}"/>
+				<input type="submit" name="seasoningChange_btn" th:value="#{button.menu}"/>
+				<br>
+				<header>
+					<h1 th:text="#{h1.today-recipe-ingredients-regist}"></h1>
+				</header>
+				
+				<!-- ingredientsName -->
+				<table>
+					<tr>
+						<td>
+							<span th:text="#{ingredients-name}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsName}"/></td>
+					</tr>
+				</table>
+				<br>
+				
+				<!-- ingredientsPriority -->
+				<table>
+					<tr>
+						<td>
+							<span th:text="#{ingredients-priority}"></span>
+						</td>
+						<td><input type="text" th:field="*{ingredientsPriority}"/></td>
+					</tr>
+				</table>
+				<br>
+				
+				<!-- ingredientsPicPath -->
+				<table>
+					<tr>
+						<td>
+							<span th:text="#{ingredients-pic-path}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{ingredientsPicPath}" cols="50" rows="1" maxlength="50"></textarea>
+						</td>
+					</tr>
+				</table>
+				<br>
+				<input type="submit" name="ingredientsRegist_btn" th:value="#{regist_btn}"/>
+			</form>
+		</div>
+	</body>
+</html>

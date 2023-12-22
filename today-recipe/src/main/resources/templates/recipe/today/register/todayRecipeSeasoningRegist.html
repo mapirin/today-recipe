@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title th:text="#{title.today-recipe-seasoning-regist}"></title>
+	</head>
+	<body>
+		<div align="center">
+			<form th:action="@{/seasoningRegist}" th:object="${ingredientsListForm}" method="post">
+				<input type="submit" name="menu_btn" th:value="#{button.menu}"/>
+				<input type="submit" name="ingredientsChange_btn" th:value="#{button.menu}"/>
+				<br>
+				<header>
+					<h1 th:text="#{h1.today-recipe-seasoning-regist}"></h1>
+				</header>
+				
+				<!-- seasoningName -->
+				<table>
+					<tr>
+						<td>
+							<span th:text="#{seasoning-name}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningName}"/></td>
+					</tr>
+				</table>
+				<br>
+				
+				<!-- seasoningPriority -->
+				<table>
+					<tr>
+						<td>
+							<span th:text="#{seasoning-priority}"></span>
+						</td>
+						<td><input type="text" th:field="*{seasoningPriority}"/></td>
+					</tr>
+				</table>
+				<br>
+				
+				<!-- seasoningPicPath -->
+				<table>
+					<tr>
+						<td>
+							<span th:text="#{seasoning-pic-path}"></span>
+						</td>
+						<td>
+							<textarea th:field="*{seasoningPicPath}" cols="50" rows="1" maxlength="50"></textarea>
+						</td>
+					</tr>
+				</table>
+				<br>
+				<input type="submit" name="seasoningRegist_btn" th:value="#{regist_btn}"/>
+			</form>
+		</div>
+	</body>
+</html>

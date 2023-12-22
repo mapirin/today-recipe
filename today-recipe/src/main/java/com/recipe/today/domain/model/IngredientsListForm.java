@@ -1,95 +1,51 @@
 package com.recipe.today.domain.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 public class IngredientsListForm implements Serializable, ListForm{
-private final static long serialVersionUID=1L;
+	private final static long serialVersionUID=1L;
 	
-	@NotEmpty
-	private String depositYear;
-	@NotEmpty
-	private String depositMonth;
-	@NotEmpty
-	private String depositDay;
-	@NotNull
-	private Integer depositAmount;
-	@NotEmpty
-	private String depositMethod;
-	@NotEmpty
-	private String depositCategory;
-	private String depositDetail;
-
-	public String getDepositYear() {
-		return depositYear;
+	private int ingredientsId;
+	/** 食材名 **/
+	private String ingredientsName;
+	//TODO/** 具材タイプ 1:肉, 2:魚, :, 2:調味料, 2:調味料, 2:調味料, 2:調味料 **/
+	private int ingredientsTypeId;
+	/** 食材優先度 **/
+	private int ingredientsPriority;
+	/** 食材画像 **/
+	private String indredientsPicPath;
+	
+	public int getIngredientsId() {
+		return ingredientsId;
 	}
-
-	public void setDepositYear(String depositYear) {
-		this.depositYear = depositYear;
+	public void setIngredientsId(int ingredientsId) {
+		this.ingredientsId = ingredientsId;
 	}
-
-	public String getDepositMonth() {
-		return depositMonth;
+	public String getIngredientsName() {
+		return ingredientsName;
 	}
-
-	public void setDepositMonth(String depositMonth) {
-		this.depositMonth = depositMonth;
+	public void setIngredientsName(String ingredientsName) {
+		this.ingredientsName = ingredientsName;
 	}
-
-	public String getDepositDay() {
-		return depositDay;
+	public int getIngredientsTypeId() {
+		return ingredientsTypeId;
 	}
-
-	public void setDepositDay(String depositDay) {
-		this.depositDay = depositDay;
+	public void setIngredientsTypeId(int ingredientsTypeId) {
+		this.ingredientsTypeId = ingredientsTypeId;
 	}
-
-	public Integer getDepositAmount() {
-		return depositAmount;
+	public int getIngredientsPriority() {
+		return ingredientsPriority;
 	}
-
-	public void setDepositAmount(Integer depositAmount) {
-		this.depositAmount = depositAmount;
+	public void setIngredientsPriority(int ingredientsPriority) {
+		this.ingredientsPriority = ingredientsPriority;
 	}
-
-	public String getDepositMethod() {
-		return depositMethod;
+	public String getIndredientsPicPath() {
+		return indredientsPicPath;
 	}
-
-	public void setDepositMethod(String depositMethod) {
-		this.depositMethod = depositMethod;
-	}
-
-	public String getDepositCategory() {
-		return depositCategory;
-	}
-
-	public void setDepositCategory(String depositCategory) {
-		this.depositCategory = depositCategory;
-	}
-
-	public String getDepositDetail() {
-		return depositDetail;
-	}
-
-	public void setDepositDetail(String depositDetail) {
-		this.depositDetail = depositDetail;
-	}
-
-	public List<Integer> getDepositYearList() {
-		List<Integer> depositYearList = new ArrayList<>();
-		int year = LocalDate.now().getYear();
-
-		for (int i = year - 3; i <= year; i++) {
-			depositYearList.add(i);
-		}
-
-		return depositYearList;
+	public void setIndredientsPicPath(String indredientsPicPath) {
+		this.indredientsPicPath = indredientsPicPath;
 	}
 
 	public List<String> getDepositMonthList() {
