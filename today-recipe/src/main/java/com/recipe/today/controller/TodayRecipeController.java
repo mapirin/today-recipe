@@ -13,7 +13,7 @@ import com.recipe.today.domain.model.SeasoningListForm;
 import com.recipe.today.domain.service.TodayRecipeService;
 
 @Controller
-@SessionAttributes("recipeListForm")
+@SessionAttributes({"recipeListForm", "ingredientsListForm", "seasoningListForm"})
 public class TodayRecipeController {
 
 	@Autowired
@@ -27,6 +27,11 @@ public class TodayRecipeController {
 	@ModelAttribute
 	public IngredientsListForm ingredientsListForm() {
 		return new IngredientsListForm();
+	}
+	
+	@ModelAttribute
+	public SeasoningListForm seaosoningListForm() {
+		return new SeasoningListForm();
 	}
 
 	// メニュー
@@ -48,7 +53,7 @@ public class TodayRecipeController {
 	@RequestMapping(value = "/regist", params = "ingredientsChange_btn")
 	public String recepiRegistToIngredientsRegist() {
 		
-		return "recipe/today/todayRecipeIngredientsRegist";
+		return "recipe/today/register/todayRecipeIngredientsRegist";
 	}
 	
 	// 調味料登録
@@ -56,14 +61,14 @@ public class TodayRecipeController {
 	@RequestMapping(value = "/ingredientsRegist", params = "seasoningChange_btn")
 	public String recepiRegistToSeasoningRegist() {
 		
-		return "recipe/today/todayRecipeSeasoningRegist";
+		return "recipe/today/register/todayRecipeSeasoningRegist";
 	}
 	// 調味料登録
 	// 調味料登録→食材登録
 	@RequestMapping(value = "/seasoningRegist", params = "ingredientsChange_btn")
 	public String seasoningRegistToRecepiRegist() {
 		
-		return "recipe/today/todayRecipeSeasoningRegist";
+		return "recipe/today/register/todayRecipeIngredientsRegist";
 	}
 	
 	/** メニューに戻る **/

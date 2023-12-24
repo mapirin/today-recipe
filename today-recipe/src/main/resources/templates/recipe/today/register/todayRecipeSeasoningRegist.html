@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<div align="center">
-			<form th:action="@{/seasoningRegist}" th:object="${ingredientsListForm}" method="post">
+			<form th:action="@{/seasoningRegist}" th:object="${seasoningListForm}" method="post">
 				<input type="submit" name="menu_btn" th:value="#{button.menu}"/>
 				<input type="submit" name="ingredientsChange_btn" th:value="#{button.menu}"/>
 				<br>
