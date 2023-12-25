@@ -8,7 +8,7 @@
 			recipe_list
 				(recipe_id
 				, recipe_name
-				, recipe_type_id
+				, recipe_type
 				, ingredients_id1, ingredients_id2, ingredients_id3, ingredients_id4, ingredients_id5
 				, ingredients_id6, ingredients_id7, ingredients_id8, ingredients_id9, ingredients_id10
 				, ingredients_id11, ingredients_id12, ingredients_id13, ingredients_id14, ingredients_id15

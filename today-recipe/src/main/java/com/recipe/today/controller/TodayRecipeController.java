@@ -91,11 +91,11 @@ public class TodayRecipeController {
 	}
 
 	/** 登録処理 **/
-	// TODO リダイレクト 登録画面で登録
+	// TODO リダイレクト レシピ登録画面で登録
 	@RequestMapping(value = "/regist", params = "recipeRegist_btn")
 	public String recipeRegistExec(@ModelAttribute("recipeListForm")RecipeListForm recipeListForm) {
 		// TODO 入力値受け取り＆値受け渡し処理
-		if (todayRecipeService.insertExec(recipeListForm, TodayRecipeUtil.LIST_TYPE_RECIPE)) {
+		if (todayRecipeService.insertRecipeExec(recipeListForm)) {
 			return "recipe/today/todayRecipeMenu";
 		}
 		return "recipe/today/todayRecipeMenu";
