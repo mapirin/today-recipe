@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SeasoningListForm implements Serializable, ListForm{
+public class SeasoningListForm implements Serializable{
 	private final static long serialVersionUID=1L;
 	
 	/** 調味料ID **/
@@ -13,7 +13,7 @@ public class SeasoningListForm implements Serializable, ListForm{
 	/** 調味料名 **/
 	private String seasoningName;
 	//TODO/** 調味料タイプ 1:砂糖, 2:塩, 3:酢, 4:醤油, 5:にんにく, 6:しょうが, 7:マヨネーズ, 8:ケチャップ等 **/
-	private int seosoningType;
+	private int seasoningType;
 	/** 調味料優先度 **/
 	private int seasoningPriority;
 	/** 調味料画像 **/
@@ -31,11 +31,11 @@ public class SeasoningListForm implements Serializable, ListForm{
 	public void setSeasoningName(String seasoningName) {
 		this.seasoningName = seasoningName;
 	}
-	public int getSeosoningType() {
-		return seosoningType;
+	public int getSeasoningType() {
+		return seasoningType;
 	}
-	public void setSeosoningType(int seosoningType) {
-		this.seosoningType = seosoningType;
+	public void setSeasoningType(int seasoningType) {
+		this.seasoningType = seasoningType;
 	}
 	public int getSeasoningPriority() {
 		return seasoningPriority;

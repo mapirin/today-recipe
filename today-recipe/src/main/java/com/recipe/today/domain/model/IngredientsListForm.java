@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IngredientsListForm implements Serializable, ListForm{
+public class IngredientsListForm implements Serializable{
 	private final static long serialVersionUID=1L;
 	
 	private int ingredientsId;
 	/** 食材名 **/
 	private String ingredientsName;
 	//TODO/** 具材タイプ 1:肉, 2:魚, :, 2:調味料, 2:調味料, 2:調味料, 2:調味料 **/
-	private int ingredientsTypeId;
+	private int ingredientsType;
 	/** 食材優先度 **/
 	private int ingredientsPriority;
 	/** 食材画像 **/
@@ -29,11 +29,11 @@ public class IngredientsListForm implements Serializable, ListForm{
 	public void setIngredientsName(String ingredientsName) {
 		this.ingredientsName = ingredientsName;
 	}
-	public int getIngredientsTypeId() {
-		return ingredientsTypeId;
+	public int getIngredientsType() {
+		return ingredientsType;
 	}
-	public void setIngredientsTypeId(int ingredientsTypeId) {
-		this.ingredientsTypeId = ingredientsTypeId;
+	public void setIngredientsType(int ingredientsType) {
+		this.ingredientsType = ingredientsType;
 	}
 	public int getIngredientsPriority() {
 		return ingredientsPriority;

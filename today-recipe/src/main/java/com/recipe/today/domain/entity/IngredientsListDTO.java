@@ -10,7 +10,7 @@ public class IngredientsListDTO implements ListDTO {
 	/** 食材優先度 **/
 	private int ingredientsPriority;
 	/** 食材画像 **/
-	private String indredientsPicPath;
+	private String ingredientsPicPath;
 	
 	public int getIngredientsId() {
 		return ingredientsId;
@@ -36,11 +36,11 @@ public class IngredientsListDTO implements ListDTO {
 	public void setIngredientsPriority(int ingredientsPriority) {
 		this.ingredientsPriority = ingredientsPriority;
 	}
-	public String getIndredientsPicPath() {
-		return indredientsPicPath;
+	public String getIngredientsPicPath() {
+		return ingredientsPicPath;
 	}
-	public void setIndredientsPicPath(String indredientsPicPath) {
-		this.indredientsPicPath = indredientsPicPath;
+	public void setIngredientsPicPath(String ingredientsPicPath) {
+		this.ingredientsPicPath = ingredientsPicPath;
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.recipe.today.domain.service;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,14 +8,14 @@ import com.recipe.today.domain.entity.IngredientsListDTO;
 import com.recipe.today.domain.entity.RecipeListDTO;
 import com.recipe.today.domain.entity.SeasoningListDTO;
 import com.recipe.today.domain.model.IngredientsListForm;
-import com.recipe.today.domain.model.ListForm;
 import com.recipe.today.domain.model.RecipeListForm;
+import com.recipe.today.domain.model.SeasoningListForm;
 import com.recipe.today.domain.repository.IngredientsListRepository;
 import com.recipe.today.domain.repository.RecipeListRepository;
 import com.recipe.today.domain.repository.SeasoningListRepository;
 
 @Service
-public class TodayRecipeService implements ListForm {
+public class TodayRecipeRegistService{
 
 	@Autowired
 	private RecipeListRepository recipeListRepository;
@@ -28,40 +27,9 @@ public class TodayRecipeService implements ListForm {
 	private SeasoningListRepository seasoningListRepository;
 
 	/**
-	 * **serviceクラス登録処理**
+	 * **serviceクラス登録処理（レシピ）**
 	 * 
-	 * 入力データを受け取る 受け取ったデータをDTOに格納する リストタイプごとに、受け取ったデータを引数にInsert処理を呼び出す
-	 * 
-	 * @param listForm 入力されたデータ
-	 * @param listType 登録するデータのタイプ
-	 * @return 処理結果
-	 */
-	@Transactional
-	public boolean insertExec(ListForm listForm, int listType) {
-//		// 入力データを受け取りDTOに格納する
-//		switch (listType) {
-//		case TodayRecipeUtil.LIST_TYPE_RECIPE:
-//			RecipeListDTO recipeListDTO = storeRecipeListData(listForm);
-//			recipeListRepository.i(recipeListDTO);
-//			break;
-//		case TodayRecipeUtil.LIST_TYPE_INGREDIENTS:
-//			IngredientsListDTO ingredientsListDTO = storeIngredientsListData(listForm);
-//			ingredientsListRepository.i(ingredientsListDTO);
-//			break;
-//		case TodayRecipeUtil.LIST_TYPE_SEASONING:
-//			SeasoningListDTO seasoningListDTO = storeSeasoningListData(listForm);
-//			seasoningListRepository.i(seasoningListDTO);
-//			break;
-//		default:
-//			return false;
-//		}
-		return true;
-	}
-
-	/**
-	 * **serviceクラス登録処理**
-	 * 
-	 * 入力データを受け取る 受け取ったデータをDTOに格納する リストタイプごとに、受け取ったデータを引数にInsert処理を呼び出す
+	 * 入力データを受け取る 受け取ったデータをDTOに格納する 受け取ったデータを引数にInsert処理を呼び出す
 	 * 
 	 * @param listForm 入力されたデータ
 	 * @param listType 登録するデータのタイプ
@@ -81,9 +49,9 @@ public class TodayRecipeService implements ListForm {
 	}
 	
 	/**
-	 * **serviceクラス登録処理**
+	 * **serviceクラス登録処理（食材）**
 	 * 
-	 * 入力データを受け取る 受け取ったデータをDTOに格納する リストタイプごとに、受け取ったデータを引数にInsert処理を呼び出す
+	 * 入力データを受け取る 受け取ったデータをDTOに格納する 受け取ったデータを引数にInsert処理を呼び出す
 	 * 
 	 * @param listForm 入力されたデータ
 	 * @param listType 登録するデータのタイプ
@@ -94,7 +62,29 @@ public class TodayRecipeService implements ListForm {
 		// 入力データを受け取りDTOに格納する
 		try {
 			IngredientsListDTO IngredientsListDTO = storeIngredientsListData(ingredientsListForm);
-			recipeListRepository.i(ingredientsListForm);
+			ingredientsListRepository.i(IngredientsListDTO);
+		} catch (Exception e) {
+			return false;
+		} finally {
+		}
+		return true;
+	}
+	
+	/**
+	 * **serviceクラス登録処理（調味料）**
+	 * 
+	 * 入力データを受け取る 受け取ったデータをDTOに格納する 受け取ったデータを引数にInsert処理を呼び出す
+	 * 
+	 * @param listForm 入力されたデータ
+	 * @param listType 登録するデータのタイプ
+	 * @return 処理結果
+	 */
+	@Transactional
+	public boolean insertSeasoningExec(SeasoningListForm seasoningListForm) {
+		// 入力データを受け取りDTOに格納する
+		try {
+			SeasoningListDTO seasoningListDTO = storeSeasoningListData(seasoningListForm);
+			seasoningListRepository.i(seasoningListDTO);
 		} catch (Exception e) {
 			return false;
 		} finally {
@@ -106,7 +96,7 @@ public class TodayRecipeService implements ListForm {
 	 * 受け取った入力値をレシピリストDTOに格納する
 	 * 
 	 * @param 入力レシピリスト
-	 * @return
+	 * @return レシピリストDTO
 	 */
 	private RecipeListDTO storeRecipeListData(RecipeListForm recipeListForm) {
 		RecipeListDTO recipeListDTO = new RecipeListDTO();
@@ -171,23 +161,58 @@ public class TodayRecipeService implements ListForm {
 	 * 受け取った入力値を食材リストDTOに格納する
 	 * 
 	 * @param 入力調味料リスト
-	 * @return
+	 * @return 食材リストDTO
 	 */
-	private IngredientsListDTO storeIngredientsListData(ListForm listForm) {
-		IngredientsListDTO IngredientsListDTO = new IngredientsListDTO();
-		BeanUtils.copyProperties(listForm, IngredientsListDTO);
-		return IngredientsListDTO;
+	private IngredientsListDTO storeIngredientsListData(IngredientsListForm ingredientsListForm) {
+		IngredientsListDTO ingredientsListDTO = new IngredientsListDTO();
+		
+		ingredientsListDTO.setIngredientsName(ingredientsListForm.getIngredientsName());
+		ingredientsListDTO.setIngredientsType(ingredientsListForm.getIngredientsType());
+		ingredientsListDTO.setIngredientsPriority(ingredientsListForm.getIngredientsPriority());
+		ingredientsListDTO.setIngredientsPicPath(ingredientsListForm.getIngredientsPicPath());
+		
+		return ingredientsListDTO;
 	}
 
 	/**
 	 * 受け取った入力値を調味料リストDTOに格納する
 	 * 
 	 * @param 入力調味料リスト
-	 * @return
+	 * @return 調味料リストDTO
 	 */
-	private SeasoningListDTO storeSeasoningListData(ListForm listForm) {
+	private SeasoningListDTO storeSeasoningListData(SeasoningListForm seasoningListForm) {
 		SeasoningListDTO seasoningListDTO = new SeasoningListDTO();
-		BeanUtils.copyProperties(listForm, seasoningListDTO);
+		
+		seasoningListDTO.setSeasoningName(seasoningListForm.getSeasoningName());
+		seasoningListDTO.setSeasoningType(seasoningListForm.getSeasoningType());
+		seasoningListDTO.setSeasoningPriority(seasoningListForm.getSeasoningPriority());
+		seasoningListDTO.setSeasoningPicPath(seasoningListForm.getSeasoningPicPath());
+		
 		return seasoningListDTO;
+	}
+	
+	/**
+	 * 受け取ったレシピ名からリクエストするレシピDTOを取得する
+	 * 
+	 * @param 入力されたレシピ名
+	 * @return 
+	 */
+	public RecipeListDTO findRecipe(String recipeName) {
+		RecipeListDTO recipeListDTO = recipeListRepository.s(recipeName);
+		
+		return recipeListDTO;
+	}
+	
+	/**
+	 * 受け取ったレシピDTOに対して食材＆調味料名を取得する
+	 * 
+	 * @param 入力されたレシピ名
+	 * @return 
+	 */
+	// TODO 食材IDと食材名（調味料も同様）をどう紐づけるか
+	private RecipeListDTO findRecipe(RecipeListDTO recipeListDTO) {
+		RecipeListDTO recipeListDTO = recipeListRepository.s(recipeName);
+		
+		return recipeListDTO;
 	}
 }

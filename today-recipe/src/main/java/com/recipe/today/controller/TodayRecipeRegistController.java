@@ -5,19 +5,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
-import com.recipe.today.common.util.TodayRecipeUtil;
 import com.recipe.today.domain.model.IngredientsListForm;
 import com.recipe.today.domain.model.RecipeListForm;
 import com.recipe.today.domain.model.SeasoningListForm;
-import com.recipe.today.domain.service.TodayRecipeService;
+import com.recipe.today.domain.service.TodayRecipeRegistService;
 
 @Controller
 @SessionAttributes({"recipeListForm", "ingredientsListForm", "seasoningListForm"})
-public class TodayRecipeController {
+public class TodayRecipeRegistController {
 
 	@Autowired
-	private TodayRecipeService todayRecipeService;
+	private TodayRecipeRegistService todayRecipeRegistService;
 
 	@ModelAttribute
 	public RecipeListForm recipeListForm() {
@@ -91,35 +91,62 @@ public class TodayRecipeController {
 	}
 
 	/** 登録処理 **/
-	// TODO リダイレクト レシピ登録画面で登録
+	// レシピ登録画面で登録
 	@RequestMapping(value = "/regist", params = "recipeRegist_btn")
 	public String recipeRegistExec(@ModelAttribute("recipeListForm")RecipeListForm recipeListForm) {
-		// TODO 入力値受け取り＆値受け渡し処理
-		if (todayRecipeService.insertRecipeExec(recipeListForm)) {
-			return "recipe/today/todayRecipeMenu";
+		
+		if (todayRecipeRegistService.insertRecipeExec(recipeListForm)) {
+			return "redirect:/today-recipe-regist?success";
 		}
-		return "recipe/today/todayRecipeMenu";
+		return "recipe/today/register/todayRecipeRegist";
 	}
 	
-	// TODO リダイレクト 食材登録画面で登録
+	// 食材登録画面で登録
 	@RequestMapping(value = "/ingredientsRegist", params = "ingredientsRegist_btn")
 	public String ingredientsRegistExec(@ModelAttribute("ingredientsListForm")IngredientsListForm ingredientsListForm) {
-		// TODO 入力値受け取り＆値受け渡し処理
 		
-		if (todayRecipeService.insertExec(ingredientsListForm, TodayRecipeUtil.LIST_TYPE_INGREDIENTS)) {
-			return "recipe/today/todayRecipeMenu";
+		if (todayRecipeRegistService.insertIngredientsExec(ingredientsListForm)) {
+			return "redirect:/today-recipe-ingredients-regist?success";
 		}
+		return "recipe/today/register/todayRecipeIngredientsRegist";
+	}
+	
+	// 調味料登録画面で登録
+	@RequestMapping(value = "/seasoningRegist", params = "seasoningRegist_btn")
+	public String seasoningRegistExec(@ModelAttribute("seasoningListForm")SeasoningListForm seasoningListForm) {
+		
+		if (todayRecipeRegistService.insertSeasoningExec(seasoningListForm)) {
+			return "redirect:/today-recipe--seasoning-regist?success";
+		}
+		return "recipe/today/register/todayRecipeSeasoningRegist";
+	}
+	
+	/** リダイレクト後の遷移 **/
+	// レシピ登録画面を初期化→メニュー
+	@RequestMapping(value = "/today-recipe-regist", params = "success")
+	public String recipeRegistSuccess(SessionStatus sessionStatus) {
+		sessionStatus.setComplete();
 		return "recipe/today/todayRecipeMenu";
 	}
 	
-	// TODO リダイレクト 調味料登録画面で登録
-	@RequestMapping(value = "/seasoningRegist", params = "seasoningRegist_btn")
-	public String seasoningRegistExec(@ModelAttribute("seasoningListForm")SeasoningListForm seasoningListForm) {
-		// TODO 入力値受け取り＆値受け渡し処理
-		
-		if (todayRecipeService.insertExec(seasoningListForm, TodayRecipeUtil.LIST_TYPE_SEASONING)) {
-			return "recipe/today/todayRecipeMenu";
-		}
-		return "recipe/today/todayRecipeMenu";
+	// 食材登録画面を初期化
+	@RequestMapping(value = "/today-recipe-ingredients-regist", params = "success")
+	public String ingredientsRegistSuccess(SessionStatus sessionStatus) {
+		sessionStatus.setComplete();
+		return "recipe/today/register/todayRecipeIngredientsRegist";
+	}
+	
+	// 調味料登録画面を初期化
+	@RequestMapping(value = "/today-recipe-seasoning-regist", params = "success")
+	public String seasoningRegistSuccess(SessionStatus sessionStatus) {
+		sessionStatus.setComplete();
+		return "recipe/today/register/todayRecipeSeasoningRegist";
+	}
+	
+	/** 選択画面 **/
+	// 
+	@RequestMapping(value = "/today-recipe-seasoning-regist", params = "success")
+	public String menuToRecipeSpecific() {
+		return "recipe/today/choise/todayRecipeSpecific";
 	}
 }
