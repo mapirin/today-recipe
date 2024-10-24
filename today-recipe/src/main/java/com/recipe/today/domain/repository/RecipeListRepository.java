@@ -9,5 +9,7 @@ public interface RecipeListRepository {
 
 	public void i(RecipeListDTO recipeListDTO);
 	
+	public int duplicateCheck(String recipeName);
+	
 	public RecipeListDTO s(String recipeName);
 }

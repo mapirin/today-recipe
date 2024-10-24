@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.recipe.today.domain.entity.CommonMessageDTO;
 import com.recipe.today.domain.entity.IngredientsListDTO;
 import com.recipe.today.domain.entity.RecipeListDTO;
 import com.recipe.today.domain.entity.SeasoningListDTO;
@@ -25,6 +26,9 @@ public class TodayRecipeRegistService{
 
 	@Autowired
 	private SeasoningListRepository seasoningListRepository;
+	
+	@Autowired
+	private CommonMessageDTO commonMessageDTO;
 
 	/**
 	 * **serviceクラス登録処理（レシピ）**
@@ -36,16 +40,30 @@ public class TodayRecipeRegistService{
 	 * @return 処理結果
 	 */
 	@Transactional
-	public boolean insertRecipeExec(RecipeListForm recipeListForm) {
+	public CommonMessageDTO insertRecipeExec(RecipeListForm recipeListForm, String id){
 		// 入力データを受け取りDTOに格納する
+		RecipeListDTO recipeListDTO = storeRecipeListData(recipeListForm);
+		
 		try {
-			RecipeListDTO recipeListDTO = storeRecipeListData(recipeListForm);
+			// レシピ名の重複チェックを実行する
+			String message = duplicateCheck(recipeListDTO.getRecipeName(), id);
+			if(message.equals("")) {
+				commonMessageDTO.setMessage("");
+				commonMessageDTO.setResult(true);
+				return commonMessageDTO;
+			}
+			// 登録実行
 			recipeListRepository.i(recipeListDTO);
+			
 		} catch (Exception e) {
-			return false;
+			commonMessageDTO.setMessage("");
+			commonMessageDTO.setResult(false);
+			return commonMessageDTO;
 		} finally {
 		}
-		return true;
+		commonMessageDTO.setMessage("");
+		commonMessageDTO.setResult(true);
+		return commonMessageDTO;
 	}
 	
 	/**
@@ -58,16 +76,30 @@ public class TodayRecipeRegistService{
 	 * @return 処理結果
 	 */
 	@Transactional
-	public boolean insertIngredientsExec(IngredientsListForm ingredientsListForm) {
+	public CommonMessageDTO insertIngredientsExec(IngredientsListForm ingredientsListForm, String id) {
 		// 入力データを受け取りDTOに格納する
+		IngredientsListDTO ingredientsListDTO = storeIngredientsListData(ingredientsListForm);
+		
 		try {
-			IngredientsListDTO IngredientsListDTO = storeIngredientsListData(ingredientsListForm);
-			ingredientsListRepository.i(IngredientsListDTO);
+		// レシピ名の重複チェックを実行する
+			String message = duplicateCheck(ingredientsListDTO.getIngredientsName(), id);
+			if(message.equals("")) {
+				commonMessageDTO.setMessage("");
+				commonMessageDTO.setResult(true);
+				return commonMessageDTO;
+			}
+			// 登録実行
+			ingredientsListRepository.i(ingredientsListDTO);
+			
 		} catch (Exception e) {
-			return false;
+			commonMessageDTO.setMessage("");
+			commonMessageDTO.setResult(false);
+			return commonMessageDTO;
 		} finally {
 		}
-		return true;
+		commonMessageDTO.setMessage("");
+		commonMessageDTO.setResult(true);
+		return commonMessageDTO;
 	}
 	
 	/**
@@ -80,16 +112,30 @@ public class TodayRecipeRegistService{
 	 * @return 処理結果
 	 */
 	@Transactional
-	public boolean insertSeasoningExec(SeasoningListForm seasoningListForm) {
+	public CommonMessageDTO insertSeasoningExec(SeasoningListForm seasoningListForm, String id) {
 		// 入力データを受け取りDTOに格納する
+		SeasoningListDTO seasoningListDTO = storeSeasoningListData(seasoningListForm);
+				
 		try {
-			SeasoningListDTO seasoningListDTO = storeSeasoningListData(seasoningListForm);
+		// レシピ名の重複チェックを実行する
+			String message = duplicateCheck(seasoningListDTO.getSeasoningName(), id);
+			if(message.equals("")) {
+				commonMessageDTO.setMessage("");
+				commonMessageDTO.setResult(true);
+				return commonMessageDTO;
+			}
+			// 登録実行
 			seasoningListRepository.i(seasoningListDTO);
+			
 		} catch (Exception e) {
-			return false;
+			commonMessageDTO.setMessage("");
+			commonMessageDTO.setResult(false);
+			return commonMessageDTO;
 		} finally {
 		}
-		return true;
+		commonMessageDTO.setMessage("");
+		commonMessageDTO.setResult(true);
+		return commonMessageDTO;
 	}
 
 	/**
@@ -192,6 +238,46 @@ public class TodayRecipeRegistService{
 	}
 	
 	/**
+	 * 受け取った各名称と種別IDをもとに、対応するTBLからデータを取得する
+	 * 
+	 * @param 入力された名称
+	 * @return 処理結果メッセージ
+	 */
+	public String duplicateCheck(String ｎame, String id)throws Exception {
+		
+		// messages.propertiesから対象メッセージを取得
+		String message = "";
+		
+		try {
+			int count = 0;
+			
+			switch (id) {
+			case "1":
+				count = recipeListRepository.duplicateCheck(ｎame);
+				if(count > 0) {
+					return message = "";
+				}
+				break;
+			case "2":
+				count = ingredientsListRepository.duplicateCheck(ｎame);
+				if(count > 0) {
+					return message = "";
+				}
+				break;
+			case "3":
+				count = seasoningListRepository.duplicateCheck(ｎame);
+				if(count > 0) {
+					return message = "";
+				}
+				break;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return message = "";
+	}
+	
+	/**
 	 * 受け取ったレシピ名からリクエストするレシピDTOを取得する
 	 * 
 	 * @param 入力されたレシピ名
@@ -211,7 +297,7 @@ public class TodayRecipeRegistService{
 	 */
 	// TODO 食材IDと食材名（調味料も同様）をどう紐づけるか
 	private RecipeListDTO findRecipe(RecipeListDTO recipeListDTO) {
-		RecipeListDTO recipeListDTO = recipeListRepository.s(recipeName);
+		RecipeListDTO recipeListDTO2 = recipeListRepository.s(recipeListDTO.getRecipeName());
 		
 		return recipeListDTO;
 	}
