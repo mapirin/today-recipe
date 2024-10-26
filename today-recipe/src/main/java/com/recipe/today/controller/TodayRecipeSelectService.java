@@ -3,22 +3,22 @@ package com.recipe.today.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.recipe.today.domain.entity.RecipeListDTO;
-import com.recipe.today.domain.repository.IngredientsListRepository;
-import com.recipe.today.domain.repository.RecipeListRepository;
-import com.recipe.today.domain.repository.SeasoningListRepository;
+import com.recipe.today.domain.entity.RecipeDataDTO;
+import com.recipe.today.domain.repository.IngredientsRepository;
+import com.recipe.today.domain.repository.RecipeRepository;
+import com.recipe.today.domain.repository.SeasoningRepository;
 
 @Service
 public class TodayRecipeSelectService {
 
 	@Autowired
-	private RecipeListRepository recipeListRepository;
+	private RecipeRepository recipeRepository;
 
 	@Autowired
-	private IngredientsListRepository ingredientsListRepository;
+	private IngredientsRepository ingredientsRepository;
 
 	@Autowired
-	private SeasoningListRepository seasoningListRepository;
+	private SeasoningRepository seasoningRepository;
 	
 	/**
 	 * 受け取ったレシピ名からリクエストするレシピDTOを取得する
@@ -26,10 +26,10 @@ public class TodayRecipeSelectService {
 	 * @param 入力されたレシピ名
 	 * @return 
 	 */
-	public RecipeListDTO findRecipe(String recipeName) {
-		RecipeListDTO recipeListDTO = recipeListRepository.s(recipeName);
+	public RecipeDataDTO findRecipe(String recipeName) {
+		RecipeDataDTO recipeDataDTO = recipeRepository.s(recipeName);
 		
-		return recipeListDTO;
+		return recipeDataDTO;
 	}
 	
 	/**
@@ -39,10 +39,10 @@ public class TodayRecipeSelectService {
 	 * @return 
 	 */
 	// TODO 食材IDと食材名（調味料も同様）をどう紐づけるか
-	private RecipeListDTO findRecipe(RecipeListDTO recipeListDTO) {
-		RecipeListDTO recipeListDTO2 = recipeListRepository.s(recipeListDTO.getRecipeName());
+	private RecipeDataDTO findRecipe(RecipeDataDTO recipeDataDTO) {
+		RecipeDataDTO recipeListDTO2 = recipeRepository.s(recipeDataDTO.getRecipeName());
 		
-		return recipeListDTO;
+		return recipeDataDTO;
 	}
 	
 }
