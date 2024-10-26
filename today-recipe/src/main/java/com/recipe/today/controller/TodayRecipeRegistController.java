@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.recipe.today.domain.entity.CommonMessageDTO;
-import com.recipe.today.domain.model.IngredientsListForm;
-import com.recipe.today.domain.model.RecipeListForm;
-import com.recipe.today.domain.model.SeasoningListForm;
+import com.recipe.today.domain.model.IngredientsMasterForm;
+import com.recipe.today.domain.model.RecipeDataForm;
+import com.recipe.today.domain.model.SeasoningMasterForm;
 import com.recipe.today.domain.service.TodayRecipeRegistService;
 
 @RestController
-@SessionAttributes({"recipeListForm", "ingredientsListForm", "seasoningListForm"})
+@SessionAttributes({"RecipeDataForm", "ingredientsListForm", "seasoningListForm"})
 public class TodayRecipeRegistController {
 
 	@Autowired
@@ -24,18 +24,18 @@ public class TodayRecipeRegistController {
 	private CommonMessageDTO commonMessageDTO;
 
 	@ModelAttribute
-	public RecipeListForm recipeListForm() {
-		return new RecipeListForm();
+	public RecipeDataForm RecipeDataForm() {
+		return new RecipeDataForm();
 	}
 
 	@ModelAttribute
-	public IngredientsListForm ingredientsListForm() {
-		return new IngredientsListForm();
+	public IngredientsMasterForm ingredientsMasterForm() {
+		return new IngredientsMasterForm();
 	}
 	
 	@ModelAttribute
-	public SeasoningListForm seaosoningListForm() {
-		return new SeasoningListForm();
+	public SeasoningMasterForm seaosoningListForm() {
+		return new SeasoningMasterForm();
 	}
 
 	// メニュー
@@ -97,9 +97,9 @@ public class TodayRecipeRegistController {
 	/** 登録処理 **/
 	// レシピ登録画面で登録
 	@RequestMapping(value = "/regist", params = "recipeRegist_btn")
-	public String recipeRegistExec(@ModelAttribute("recipeListForm")RecipeListForm recipeListForm) {
+	public String recipeRegistExec(@ModelAttribute("RecipeDataForm")RecipeDataForm RecipeDataForm) {
 		// 登録処理実行
-		todayRecipeRegistService.insertRecipeExec(recipeListForm, "1");
+		todayRecipeRegistService.insertRecipeExec(RecipeDataForm, "1");
 		if(commonMessageDTO.isResult()) {
 			return "redirect:/today-recipe-regist?success";
 		}
@@ -108,9 +108,9 @@ public class TodayRecipeRegistController {
 	
 	// 食材登録画面で登録
 	@RequestMapping(value = "/ingredientsRegist", params = "ingredientsRegist_btn")
-	public String ingredientsRegistExec(@ModelAttribute("ingredientsListForm")IngredientsListForm ingredientsListForm) {
+	public String ingredientsRegistExec(@ModelAttribute("ingredientsListForm")IngredientsMasterForm ingredientsMasterForm) {
 		
-		todayRecipeRegistService.insertIngredientsExec(ingredientsListForm, "2"); 
+		todayRecipeRegistService.insertIngredientsExec(ingredientsMasterForm, "2"); 
 		if(commonMessageDTO.isResult()){
 			return "redirect:/today-recipe-ingredients-regist?success";
 		}
@@ -119,9 +119,9 @@ public class TodayRecipeRegistController {
 	
 	// 調味料登録画面で登録
 	@RequestMapping(value = "/seasoningRegist", params = "seasoningRegist_btn")
-	public String seasoningRegistExec(@ModelAttribute("seasoningListForm")SeasoningListForm seasoningListForm) {
+	public String seasoningRegistExec(@ModelAttribute("seasoningListForm")SeasoningMasterForm seasoningMasterForm) {
 		
-		todayRecipeRegistService.insertSeasoningExec(seasoningListForm, "3");
+		todayRecipeRegistService.insertSeasoningExec(seasoningMasterForm, "3");
 		if (commonMessageDTO.isResult()) {
 			return "redirect:/today-recipe--seasoning-regist?success";
 		}

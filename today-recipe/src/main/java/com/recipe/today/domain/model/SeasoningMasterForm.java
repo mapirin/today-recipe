@@ -1,6 +1,13 @@
-package com.recipe.today.domain.entity;
+package com.recipe.today.domain.model;
 
-public class SeasoningListDTO implements ListDTO{
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SeasoningMasterForm implements Serializable{
+	private final static long serialVersionUID=1L;
+	
 	/** 調味料ID **/
 	private int seasoningId;
 	/** 調味料名 **/
@@ -42,5 +49,39 @@ public class SeasoningListDTO implements ListDTO{
 	public void setSeasoningPicPath(String seasoningPicPath) {
 		this.seasoningPicPath = seasoningPicPath;
 	}
-	
+
+	public List<Integer> getDepositYearList() {
+		List<Integer> depositYearList = new ArrayList<>();
+		int year = LocalDate.now().getYear();
+
+		for (int i = year - 3; i <= year; i++) {
+			depositYearList.add(i);
+		}
+
+		return depositYearList;
+	}
+
+	public List<String> getDepositMonthList() {
+		List<String> depositMonthList = new ArrayList<>();
+		String month="";
+
+		for (int i = 1; i <= 12; i++) {
+			month = String.format("%02d", i);
+			depositMonthList.add(month);
+		}
+
+		return depositMonthList;
+	}
+
+	public List<String> getDepositDayList() {
+		List<String> depositDayList = new ArrayList<>();
+		String day = "";
+
+		for (int i = 1; i <= 31; i++) {
+			day = String.format("%02d", i);
+			depositDayList.add(day);
+		}
+
+		return depositDayList;
+	}
 }

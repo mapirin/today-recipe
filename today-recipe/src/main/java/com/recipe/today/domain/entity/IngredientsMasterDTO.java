@@ -1,17 +1,17 @@
 package com.recipe.today.domain.entity;
 
-public class IngredientsListDTO implements ListDTO {
+public class IngredientsMasterDTO implements ListDTO {
+
 	/** 食材ID **/
 	private int ingredientsId;
 	/** 食材名 **/
 	private String ingredientsName;
-	//TODO/** 具材タイプ 1:肉, 2:魚, :, 2:調味料, 2:調味料, 2:調味料, 2:調味料 **/
-	private int ingredientsType;
-	/** 食材優先度 **/
-	private int ingredientsPriority;
 	/** 食材画像 **/
 	private String ingredientsPicPath;
+	/** 削除フラグ **/
+	private String delFlg;
 	
+	/** **/
 	public int getIngredientsId() {
 		return ingredientsId;
 	}
@@ -24,23 +24,16 @@ public class IngredientsListDTO implements ListDTO {
 	public void setIngredientsName(String ingredientsName) {
 		this.ingredientsName = ingredientsName;
 	}
-	public int getIngredientsType() {
-		return ingredientsType;
-	}
-	public void setIngredientsType(int ingredientsType) {
-		this.ingredientsType = ingredientsType;
-	}
-	public int getIngredientsPriority() {
-		return ingredientsPriority;
-	}
-	public void setIngredientsPriority(int ingredientsPriority) {
-		this.ingredientsPriority = ingredientsPriority;
-	}
 	public String getIngredientsPicPath() {
 		return ingredientsPicPath;
 	}
 	public void setIngredientsPicPath(String ingredientsPicPath) {
 		this.ingredientsPicPath = ingredientsPicPath;
 	}
-
+	public String getDelFlg() {
+		return delFlg;
+	}
+	public void setDelFlg(String delFlg) {
+		this.delFlg = delFlg;
+	}
 }

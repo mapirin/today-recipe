@@ -5,27 +5,29 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.recipe.today.domain.entity.CommonMessageDTO;
-import com.recipe.today.domain.entity.IngredientsListDTO;
-import com.recipe.today.domain.entity.RecipeListDTO;
-import com.recipe.today.domain.entity.SeasoningListDTO;
-import com.recipe.today.domain.model.IngredientsListForm;
-import com.recipe.today.domain.model.RecipeListForm;
-import com.recipe.today.domain.model.SeasoningListForm;
-import com.recipe.today.domain.repository.IngredientsListRepository;
-import com.recipe.today.domain.repository.RecipeListRepository;
-import com.recipe.today.domain.repository.SeasoningListRepository;
+import com.recipe.today.domain.entity.IngredientsDataDTO;
+import com.recipe.today.domain.entity.IngredientsMasterDTO;
+import com.recipe.today.domain.entity.RecipeDataDTO;
+import com.recipe.today.domain.entity.SeasoningDataDTO;
+import com.recipe.today.domain.entity.SeasoningMasterDTO;
+import com.recipe.today.domain.model.IngredientsMasterForm;
+import com.recipe.today.domain.model.RecipeDataForm;
+import com.recipe.today.domain.model.SeasoningMasterForm;
+import com.recipe.today.domain.repository.IngredientsRepository;
+import com.recipe.today.domain.repository.RecipeRepository;
+import com.recipe.today.domain.repository.SeasoningRepository;
 
 @Service
 public class TodayRecipeRegistService{
 
 	@Autowired
-	private RecipeListRepository recipeListRepository;
+	private RecipeRepository recipeRepository;
 
 	@Autowired
-	private IngredientsListRepository ingredientsListRepository;
+	private IngredientsRepository ingredientsRepository;
 
 	@Autowired
-	private SeasoningListRepository seasoningListRepository;
+	private SeasoningRepository seasoningRepository;
 	
 	@Autowired
 	private CommonMessageDTO commonMessageDTO;
@@ -33,27 +35,30 @@ public class TodayRecipeRegistService{
 	/**
 	 * **serviceクラス登録処理（レシピ）**
 	 * 
-	 * 入力データを受け取る 受け取ったデータをDTOに格納する 受け取ったデータを引数にInsert処理を呼び出す
+	 * 入力データを受け取る 受け取ったデータを各DTOに格納する DTOを引数にInsert処理を呼び出す
 	 * 
 	 * @param listForm 入力されたデータ
 	 * @param listType 登録するデータのタイプ
 	 * @return 処理結果
 	 */
 	@Transactional
-	public CommonMessageDTO insertRecipeExec(RecipeListForm recipeListForm, String id){
-		// 入力データを受け取りDTOに格納する
-		RecipeListDTO recipeListDTO = storeRecipeListData(recipeListForm);
+	public CommonMessageDTO insertRecipeExec(RecipeDataForm RecipeDataForm, String dataType){
+		//TODO 入力データのうち、食材にかかわるデータを食材データDTOに格納する
+		//TODO 入力データのうち、調味料にかかわるデータを調味料データDTOに格納する
+		// 入力データを、レシピデータDTOに格納する
+		RecipeDataDTO recipeDataDTO = storeRecipeData(RecipeDataForm);
 		
 		try {
 			// レシピ名の重複チェックを実行する
-			String message = duplicateCheck(recipeListDTO.getRecipeName(), id);
+			String message = duplicateCheck(recipeDataDTO.getRecipeName(), dataType);
 			if(message.equals("")) {
 				commonMessageDTO.setMessage("");
 				commonMessageDTO.setResult(true);
 				return commonMessageDTO;
 			}
 			// 登録実行
-			recipeListRepository.i(recipeListDTO);
+			//TODO 食愛＆調味料データDTOの登録処理を追加
+			recipeRepository.i(recipeDataDTO);
 			
 		} catch (Exception e) {
 			commonMessageDTO.setMessage("");
@@ -69,27 +74,27 @@ public class TodayRecipeRegistService{
 	/**
 	 * **serviceクラス登録処理（食材）**
 	 * 
-	 * 入力データを受け取る 受け取ったデータをDTOに格納する 受け取ったデータを引数にInsert処理を呼び出す
+	 * 入力データを受け取る 受け取ったデータをDTOに格納する DTOを引数にInsert処理を呼び出す
 	 * 
 	 * @param listForm 入力されたデータ
 	 * @param listType 登録するデータのタイプ
 	 * @return 処理結果
 	 */
 	@Transactional
-	public CommonMessageDTO insertIngredientsExec(IngredientsListForm ingredientsListForm, String id) {
+	public CommonMessageDTO insertIngredientsExec(IngredientsMasterForm ingredientsMasterForm, String listType) {
 		// 入力データを受け取りDTOに格納する
-		IngredientsListDTO ingredientsListDTO = storeIngredientsListData(ingredientsListForm);
+		IngredientsMasterDTO ingredientsMasterDTO = storeIngredientsMasterData(ingredientsMasterForm);
 		
 		try {
-		// レシピ名の重複チェックを実行する
-			String message = duplicateCheck(ingredientsListDTO.getIngredientsName(), id);
+		// 食材名の重複チェックを実行する
+			String message = duplicateCheck(ingredientsMasterDTO.getIngredientsName(), listType);
 			if(message.equals("")) {
 				commonMessageDTO.setMessage("");
 				commonMessageDTO.setResult(true);
 				return commonMessageDTO;
 			}
 			// 登録実行
-			ingredientsListRepository.i(ingredientsListDTO);
+			ingredientsRepository.i(ingredientsMasterDTO);
 			
 		} catch (Exception e) {
 			commonMessageDTO.setMessage("");
@@ -105,27 +110,27 @@ public class TodayRecipeRegistService{
 	/**
 	 * **serviceクラス登録処理（調味料）**
 	 * 
-	 * 入力データを受け取る 受け取ったデータをDTOに格納する 受け取ったデータを引数にInsert処理を呼び出す
+	 * 入力データを受け取る 受け取ったデータをDTOに格納する DTOを引数にInsert処理を呼び出す
 	 * 
 	 * @param listForm 入力されたデータ
 	 * @param listType 登録するデータのタイプ
 	 * @return 処理結果
 	 */
 	@Transactional
-	public CommonMessageDTO insertSeasoningExec(SeasoningListForm seasoningListForm, String id) {
+	public CommonMessageDTO insertSeasoningExec(SeasoningMasterForm seasoningMasterForm, String listType) {
 		// 入力データを受け取りDTOに格納する
-		SeasoningListDTO seasoningListDTO = storeSeasoningListData(seasoningListForm);
+		SeasoningMasterDTO seasoningMasteraDTO = storeSeasoningMasterData(seasoningMasterForm);
 				
 		try {
 		// レシピ名の重複チェックを実行する
-			String message = duplicateCheck(seasoningListDTO.getSeasoningName(), id);
+			String message = duplicateCheck(seasoningMasteraDTO.getSeasoningName(), listType);
 			if(message.equals("")) {
 				commonMessageDTO.setMessage("");
 				commonMessageDTO.setResult(true);
 				return commonMessageDTO;
 			}
 			// 登録実行
-			seasoningListRepository.i(seasoningListDTO);
+			seasoningRepository.i(seasoningMasteraDTO);
 			
 		} catch (Exception e) {
 			commonMessageDTO.setMessage("");
@@ -139,102 +144,116 @@ public class TodayRecipeRegistService{
 	}
 
 	/**
-	 * 受け取った入力値をレシピリストDTOに格納する
+	 * 受け取った入力値を食材データDTOに格納する
 	 * 
-	 * @param 入力レシピリスト
-	 * @return レシピリストDTO
+	 * @param 食材データ
+	 * @return 食材データDTO
 	 */
-	private RecipeListDTO storeRecipeListData(RecipeListForm recipeListForm) {
-		RecipeListDTO recipeListDTO = new RecipeListDTO();
-
-		recipeListDTO.setRecipeName(recipeListForm.getRecipeName());
-		recipeListDTO.setIngredientsId1(recipeListForm.getIngredientsId1());
-		recipeListDTO.setIngredientsId2(recipeListForm.getIngredientsId2());
-		recipeListDTO.setIngredientsId3(recipeListForm.getIngredientsId3());
-		recipeListDTO.setIngredientsId4(recipeListForm.getIngredientsId4());
-		recipeListDTO.setIngredientsId5(recipeListForm.getIngredientsId5());
-		recipeListDTO.setIngredientsId6(recipeListForm.getIngredientsId6());
-		recipeListDTO.setIngredientsId7(recipeListForm.getIngredientsId7());
-		recipeListDTO.setIngredientsId8(recipeListForm.getIngredientsId8());
-		recipeListDTO.setIngredientsId9(recipeListForm.getIngredientsId9());
-		recipeListDTO.setIngredientsId10(recipeListForm.getIngredientsId10());
-		recipeListDTO.setIngredientsId11(recipeListForm.getIngredientsId11());
-		recipeListDTO.setIngredientsId12(recipeListForm.getIngredientsId12());
-		recipeListDTO.setIngredientsId13(recipeListForm.getIngredientsId13());
-		recipeListDTO.setIngredientsId14(recipeListForm.getIngredientsId14());
-		recipeListDTO.setIngredientsId15(recipeListForm.getIngredientsId15());
-		recipeListDTO.setIngredientsId16(recipeListForm.getIngredientsId16());
-		recipeListDTO.setIngredientsId17(recipeListForm.getIngredientsId17());
-		recipeListDTO.setIngredientsId18(recipeListForm.getIngredientsId18());
-		recipeListDTO.setIngredientsId19(recipeListForm.getIngredientsId19());
-		recipeListDTO.setIngredientsId20(recipeListForm.getIngredientsId20());
-		recipeListDTO.setSeasoningId1(recipeListForm.getSeasoningId1());
-		recipeListDTO.setSeasoningId2(recipeListForm.getSeasoningId2());
-		recipeListDTO.setSeasoningId3(recipeListForm.getSeasoningId3());
-		recipeListDTO.setSeasoningId4(recipeListForm.getSeasoningId4());
-		recipeListDTO.setSeasoningId5(recipeListForm.getSeasoningId5());
-		recipeListDTO.setSeasoningId6(recipeListForm.getSeasoningId6());
-		recipeListDTO.setSeasoningId7(recipeListForm.getSeasoningId7());
-		recipeListDTO.setSeasoningId8(recipeListForm.getSeasoningId8());
-		recipeListDTO.setSeasoningId9(recipeListForm.getSeasoningId9());
-		recipeListDTO.setSeasoningId10(recipeListForm.getSeasoningId10());
-		recipeListDTO.setSeasoningId11(recipeListForm.getSeasoningId11());
-		recipeListDTO.setSeasoningId12(recipeListForm.getSeasoningId12());
-		recipeListDTO.setSeasoningId13(recipeListForm.getSeasoningId13());
-		recipeListDTO.setSeasoningId14(recipeListForm.getSeasoningId14());
-		recipeListDTO.setSeasoningId15(recipeListForm.getSeasoningId15());
-		recipeListDTO.setSeasoningId16(recipeListForm.getSeasoningId16());
-		recipeListDTO.setSeasoningId17(recipeListForm.getSeasoningId17());
-		recipeListDTO.setSeasoningId18(recipeListForm.getSeasoningId18());
-		recipeListDTO.setSeasoningId19(recipeListForm.getSeasoningId19());
-		recipeListDTO.setSeasoningId20(recipeListForm.getSeasoningId20());
-		recipeListDTO.setRecipeTimeRequired(recipeListForm.getRecipeTimeRequired());
-		recipeListDTO.setRecipeMethod1(recipeListForm.getRecipeMethod1());
-		recipeListDTO.setRecipeMethod2(recipeListForm.getRecipeMethod2());
-		recipeListDTO.setRecipeMethod3(recipeListForm.getRecipeMethod3());
-		recipeListDTO.setRecipeMethod4(recipeListForm.getRecipeMethod4());
-		recipeListDTO.setRecipeMethod5(recipeListForm.getRecipeMethod5());
-		recipeListDTO.setRecipeMethod6(recipeListForm.getRecipeMethod6());
-		recipeListDTO.setRecipeMethod7(recipeListForm.getRecipeMethod7());
-		recipeListDTO.setRecipeMethod8(recipeListForm.getRecipeMethod8());
-		recipeListDTO.setRecipeMethod9(recipeListForm.getRecipeMethod9());
-		recipeListDTO.setRecipeMethod10(recipeListForm.getRecipeMethod10());
-
-		return recipeListDTO;
+	private IngredientsDataDTO storeIngredientsData(RecipeDataForm recipeDataForm) {
+		IngredientsDataDTO ingredientsDataDTO = new IngredientsDataDTO();
+		
+		ingredientsDataDTO.setIngredientsKey(recipeDataForm.getIngredientsKey());
+		ingredientsDataDTO.setIngredientsId(recipeDataForm.getIngredientsId());
+		ingredientsDataDTO.setIngredientsTypeId(recipeDataForm.getRecipeTypeId());
+		ingredientsDataDTO.setIngredientsOrder(recipeDataForm.getIngredientsOrder());
+		
+		return ingredientsDataDTO;
 	}
 
 	/**
-	 * 受け取った入力値を食材リストDTOに格納する
+	 * 受け取った入力値を調味料データDTOに格納する
 	 * 
-	 * @param 入力調味料リスト
-	 * @return 食材リストDTO
+	 * @param 調味料データ
+	 * @return 調味料データDTO
 	 */
-	private IngredientsListDTO storeIngredientsListData(IngredientsListForm ingredientsListForm) {
-		IngredientsListDTO ingredientsListDTO = new IngredientsListDTO();
+	private SeasoningDataDTO storeSeasoningData(RecipeDataForm recipeDataForm) {
+		SeasoningDataDTO seasoningDataDTO = new SeasoningDataDTO();
 		
-		ingredientsListDTO.setIngredientsName(ingredientsListForm.getIngredientsName());
-		ingredientsListDTO.setIngredientsType(ingredientsListForm.getIngredientsType());
-		ingredientsListDTO.setIngredientsPriority(ingredientsListForm.getIngredientsPriority());
-		ingredientsListDTO.setIngredientsPicPath(ingredientsListForm.getIngredientsPicPath());
+		seasoningDataDTO.setSeasoningKey(recipeDataForm.getSeasoningKey());
+		seasoningDataDTO.setSeasoningId(recipeDataForm.getSeasoningId());
+		seasoningDataDTO.setSeasoningTypeId(recipeDataForm.getRecipeTypeId());
+		seasoningDataDTO.setSeasoningOrder(recipeDataForm.getSeasoningOrder());
 		
-		return ingredientsListDTO;
+		return seasoningDataDTO;
+	}
+	
+	/**
+	 * 受け取った入力値をレシピデータDTOに格納する
+	 * 
+	 * @param 入力レシピ
+	 * @return レシピデータDTO
+	 */
+	private RecipeDataDTO storeRecipeData(RecipeDataForm RecipeDataForm) {
+		RecipeDataDTO recipeDataDTO = new RecipeDataDTO();
+		
+		// 入力値
+		recipeDataDTO.setRecipeName(RecipeDataForm.getRecipeName());
+		// 取得または採番値
+		recipeDataDTO.setIngredientsKey(RecipeDataForm.getIngredientsKey());
+		// 取得値
+		recipeDataDTO.setIngredientsId(RecipeDataForm.getIngredientsId());
+		// 入力値
+//		recipeDataDTO.setIngredientsName(RecipeDataForm.getIngredientsName());
+		recipeDataDTO.setIngredientsOrder(RecipeDataForm.getIngredientsOrder());
+		// 取得または採番値
+		recipeDataDTO.setSeasoningKey(RecipeDataForm.getSeasoningKey());
+		// 取得値
+		recipeDataDTO.setSeasoningId(RecipeDataForm.getSeasoningId());
+		// 入力値
+//		recipeDataDTO.setSeasoningName(RecipeDataForm.getSeasoningName());
+		recipeDataDTO.setSeasoningOrder(RecipeDataForm.getSeasoningOrder());
+		// 取得または採番値
+		recipeDataDTO.setProcessKey(RecipeDataForm.getProcessKey());
+		// 取得値
+		recipeDataDTO.setProcessId(RecipeDataForm.getProcessId());
+		// 入力値
+		recipeDataDTO.setProcess(RecipeDataForm.getProcess());
+		// 入力値
+		recipeDataDTO.setCookingTime(RecipeDataForm.getCookingTime());
+		// 取得または採番値
+		recipeDataDTO.setMoodKey(RecipeDataForm.getMoodKey());
+		// 取得値
+		recipeDataDTO.setMoodId(RecipeDataForm.getMoodId());
+		// 入力値
+//		recipeDataDTO.setMoodName(RecipeDataForm.getMoodName());
+		// 取得値
+		recipeDataDTO.setRecipeTypeId(RecipeDataForm.getRecipeTypeId());
+		// 入力値
+//		recipeDataDTO.setTypeName(RecipeDataForm.getTypeName());
+
+		return recipeDataDTO;
 	}
 
 	/**
-	 * 受け取った入力値を調味料リストDTOに格納する
+	 * 受け取った入力値を食材マスタDTOに格納する
 	 * 
-	 * @param 入力調味料リスト
-	 * @return 調味料リストDTO
+	 * @param 食材マスタデータ
+	 * @return 食材マスタDTO
 	 */
-	private SeasoningListDTO storeSeasoningListData(SeasoningListForm seasoningListForm) {
-		SeasoningListDTO seasoningListDTO = new SeasoningListDTO();
+	private IngredientsMasterDTO storeIngredientsMasterData(IngredientsMasterForm ingredientsMasterForm) {
+		IngredientsMasterDTO ingredientsMasterDTO = new IngredientsMasterDTO();
 		
-		seasoningListDTO.setSeasoningName(seasoningListForm.getSeasoningName());
-		seasoningListDTO.setSeasoningType(seasoningListForm.getSeasoningType());
-		seasoningListDTO.setSeasoningPriority(seasoningListForm.getSeasoningPriority());
-		seasoningListDTO.setSeasoningPicPath(seasoningListForm.getSeasoningPicPath());
+		ingredientsMasterDTO.setIngredientsId(ingredientsMasterForm.getIngredientsId());
+		ingredientsMasterDTO.setIngredientsName(ingredientsMasterForm.getIngredientsName());
+		ingredientsMasterDTO.setIngredientsPicPath(ingredientsMasterForm.getIngredientsPicPath());
 		
-		return seasoningListDTO;
+		return ingredientsMasterDTO;
+	}
+
+	/**
+	 * 受け取った入力値を調味料マスタDTOに格納する
+	 * 
+	 * @param 調味料マスタデータ
+	 * @return 調味料マスタDTO
+	 */
+	private SeasoningMasterDTO storeSeasoningMasterData(SeasoningMasterForm seasoningMasterForm) {
+		SeasoningMasterDTO seasoningMasterDTO = new SeasoningMasterDTO();
+		
+		seasoningMasterDTO.setSeasoningId(seasoningMasterForm.getSeasoningId());
+		seasoningMasterDTO.setSeasoningName(seasoningMasterForm.getSeasoningName());
+		seasoningMasterDTO.setSeasoningPicPath(seasoningMasterForm.getSeasoningPicPath());
+		
+		return seasoningMasterDTO;
 	}
 	
 	/**
@@ -253,19 +272,19 @@ public class TodayRecipeRegistService{
 			
 			switch (id) {
 			case "1":
-				count = recipeListRepository.duplicateCheck(ｎame);
+				count = recipeRepository.duplicateCheck(ｎame);
 				if(count > 0) {
 					return message = "";
 				}
 				break;
 			case "2":
-				count = ingredientsListRepository.duplicateCheck(ｎame);
+				count = ingredientsRepository.duplicateCheck(ｎame);
 				if(count > 0) {
 					return message = "";
 				}
 				break;
 			case "3":
-				count = seasoningListRepository.duplicateCheck(ｎame);
+				count = seasoningRepository.duplicateCheck(ｎame);
 				if(count > 0) {
 					return message = "";
 				}
@@ -283,10 +302,10 @@ public class TodayRecipeRegistService{
 	 * @param 入力されたレシピ名
 	 * @return 
 	 */
-	public RecipeListDTO findRecipe(String recipeName) {
-		RecipeListDTO recipeListDTO = recipeListRepository.s(recipeName);
+	public RecipeDataDTO findRecipe(String recipeName) {
+		RecipeDataDTO recipeDataDTO = recipeRepository.s(recipeName);
 		
-		return recipeListDTO;
+		return recipeDataDTO;
 	}
 	
 	/**
@@ -296,9 +315,9 @@ public class TodayRecipeRegistService{
 	 * @return 
 	 */
 	// TODO 食材IDと食材名（調味料も同様）をどう紐づけるか
-	private RecipeListDTO findRecipe(RecipeListDTO recipeListDTO) {
-		RecipeListDTO recipeListDTO2 = recipeListRepository.s(recipeListDTO.getRecipeName());
+	private RecipeDataDTO findRecipe(RecipeDataDTO recipeDataDTO) {
+		RecipeDataDTO recipeListDTO2 = recipeRepository.s(recipeDataDTO.getRecipeName());
 		
-		return recipeListDTO;
+		return recipeDataDTO;
 	}
 }
