@@ -42,11 +42,23 @@ public class TodayRecipeRegistService{
 	 * @return 処理結果
 	 */
 	@Transactional
-	public CommonMessageDTO insertRecipeExec(RecipeDataForm RecipeDataForm, String dataType){
+	public CommonMessageDTO insertRecipeExec(RecipeDataForm recipeDataForm, String dataType){
 		//TODO 入力データのうち、食材にかかわるデータを食材データDTOに格納する
+		IngredientsDataDTO ingredientsDataDTO = 
+				storeIngredientsData(
+						recipeDataForm.getIngredientsKey()
+						,recipeDataForm.getIngredientsId()
+						,recipeDataForm.getRecipeTypeId()
+						,recipeDataForm.getIngredientsOrder());
 		//TODO 入力データのうち、調味料にかかわるデータを調味料データDTOに格納する
+		SeasoningDataDTO seasoningDataDTO = 
+				storeSeasoningData(
+						recipeDataForm.getSeasoningKey()
+						,recipeDataForm.getSeasoningId()
+						,recipeDataForm.getRecipeTypeId()
+						,recipeDataForm.getSeasoningOrder());
 		// 入力データを、レシピデータDTOに格納する
-		RecipeDataDTO recipeDataDTO = storeRecipeData(RecipeDataForm);
+		RecipeDataDTO recipeDataDTO = storeRecipeData(recipeDataForm);
 		
 		try {
 			// レシピ名の重複チェックを実行する
@@ -57,7 +69,8 @@ public class TodayRecipeRegistService{
 				return commonMessageDTO;
 			}
 			// 登録実行
-			//TODO 食愛＆調味料データDTOの登録処理を追加
+			ingredientsRepository.i(ingredientsDataDTO);
+			seasoningRepository.i(seasoningDataDTO);
 			recipeRepository.i(recipeDataDTO);
 			
 		} catch (Exception e) {
@@ -149,13 +162,13 @@ public class TodayRecipeRegistService{
 	 * @param 食材データ
 	 * @return 食材データDTO
 	 */
-	private IngredientsDataDTO storeIngredientsData(RecipeDataForm recipeDataForm) {
+	private IngredientsDataDTO storeIngredientsData(String key, int id, int typeId, String order) {
 		IngredientsDataDTO ingredientsDataDTO = new IngredientsDataDTO();
 		
-		ingredientsDataDTO.setIngredientsKey(recipeDataForm.getIngredientsKey());
-		ingredientsDataDTO.setIngredientsId(recipeDataForm.getIngredientsId());
-		ingredientsDataDTO.setIngredientsTypeId(recipeDataForm.getRecipeTypeId());
-		ingredientsDataDTO.setIngredientsOrder(recipeDataForm.getIngredientsOrder());
+		ingredientsDataDTO.setIngredientsKey(key);
+		ingredientsDataDTO.setIngredientsId(id);
+		ingredientsDataDTO.setIngredientsTypeId(typeId);
+		ingredientsDataDTO.setIngredientsOrder(order);
 		
 		return ingredientsDataDTO;
 	}
@@ -166,13 +179,13 @@ public class TodayRecipeRegistService{
 	 * @param 調味料データ
 	 * @return 調味料データDTO
 	 */
-	private SeasoningDataDTO storeSeasoningData(RecipeDataForm recipeDataForm) {
+	private SeasoningDataDTO storeSeasoningData(String key, int id, int typeId, String order) {
 		SeasoningDataDTO seasoningDataDTO = new SeasoningDataDTO();
 		
-		seasoningDataDTO.setSeasoningKey(recipeDataForm.getSeasoningKey());
-		seasoningDataDTO.setSeasoningId(recipeDataForm.getSeasoningId());
-		seasoningDataDTO.setSeasoningTypeId(recipeDataForm.getRecipeTypeId());
-		seasoningDataDTO.setSeasoningOrder(recipeDataForm.getSeasoningOrder());
+		seasoningDataDTO.setSeasoningKey(key);
+		seasoningDataDTO.setSeasoningId(id);
+		seasoningDataDTO.setSeasoningTypeId(typeId);
+		seasoningDataDTO.setSeasoningOrder(order);
 		
 		return seasoningDataDTO;
 	}
@@ -192,15 +205,13 @@ public class TodayRecipeRegistService{
 		recipeDataDTO.setIngredientsKey(RecipeDataForm.getIngredientsKey());
 		// 取得値
 		recipeDataDTO.setIngredientsId(RecipeDataForm.getIngredientsId());
-		// 入力値
-//		recipeDataDTO.setIngredientsName(RecipeDataForm.getIngredientsName());
+		//TODO  
 		recipeDataDTO.setIngredientsOrder(RecipeDataForm.getIngredientsOrder());
 		// 取得または採番値
 		recipeDataDTO.setSeasoningKey(RecipeDataForm.getSeasoningKey());
 		// 取得値
 		recipeDataDTO.setSeasoningId(RecipeDataForm.getSeasoningId());
-		// 入力値
-//		recipeDataDTO.setSeasoningName(RecipeDataForm.getSeasoningName());
+		//TODO 
 		recipeDataDTO.setSeasoningOrder(RecipeDataForm.getSeasoningOrder());
 		// 取得または採番値
 		recipeDataDTO.setProcessKey(RecipeDataForm.getProcessKey());
@@ -214,12 +225,8 @@ public class TodayRecipeRegistService{
 		recipeDataDTO.setMoodKey(RecipeDataForm.getMoodKey());
 		// 取得値
 		recipeDataDTO.setMoodId(RecipeDataForm.getMoodId());
-		// 入力値
-//		recipeDataDTO.setMoodName(RecipeDataForm.getMoodName());
 		// 取得値
 		recipeDataDTO.setRecipeTypeId(RecipeDataForm.getRecipeTypeId());
-		// 入力値
-//		recipeDataDTO.setTypeName(RecipeDataForm.getTypeName());
 
 		return recipeDataDTO;
 	}

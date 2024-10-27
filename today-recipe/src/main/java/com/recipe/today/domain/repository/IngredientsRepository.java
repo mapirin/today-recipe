@@ -1,10 +1,10 @@
 package com.recipe.today.domain.repository;
 
-import com.recipe.today.domain.entity.IngredientsMasterDTO;
+import com.recipe.today.domain.entity.ListDTO;
 
 public interface IngredientsRepository {
 
 	public int duplicateCheck(String recipeName);
 	
-	public void i(IngredientsMasterDTO ingredientsMasterDTO);
+	public void i(ListDTO listDTO);
 }
