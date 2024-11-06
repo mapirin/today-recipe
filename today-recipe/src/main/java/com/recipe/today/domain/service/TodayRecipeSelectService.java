@@ -1,5 +1,6 @@
 package com.recipe.today.domain.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +40,7 @@ public class TodayRecipeSelectService {
 		recipeDataDto = recipeRepository.s(recipeName);
 		
 		//TODO recipeDataDtoをrecipeDataFormにセット
-//		recipeDataForm.setXX;
+		BeanUtils.copyProperties(recipeDataForm, recipeDataDto);
 		
 		return recipeDataForm;
 	}
@@ -50,29 +51,10 @@ public class TodayRecipeSelectService {
 	 * @param name
 	 * @return
 	 */
-	public RecipeDataForm selectRecipeForIngAndSeas(String[] name) {
-		RecipeDataForm recipeDataForm = new RecipeDataForm();
-		
-		return null;
-	}
-	
-	/**
-	 * 入力された食材または調味料からレシピを検索する
-	 * 
-	 * @param name
-	 * @return
-	 */
-	private RecipeDataForm selectIngAndSeas(String[] name) {
-		return null;
-	}
-	
-	/**
-	 * 入力された食材または調味料からレシピを検索する
-	 * 
-	 * @param name
-	 * @return
-	 */
-	private RecipeDataForm selectRecipeForSeasoning(String[] name) {
+	public RecipeDataForm selectRecipeForIngAndSeas(RecipeDataForm recipeDataForm) {
+		RecipeDataForm recipeDataForm2 = new RecipeDataForm();
+		//画面からはそれぞれのIDやキーをもらう想定
+		//そこからIDに紐づく名称を取得し、レシピFormに突っ込んで返せばうまくいきそう
 		return null;
 	}
 	
@@ -83,6 +65,7 @@ public class TodayRecipeSelectService {
 	 * @return
 	 */
 	public RecipeDataForm selectRecipeForMood(String[] mood) {
+		//いくつかの気分データをもとに取得処理を実行
 		return null;
 	}
 	
@@ -93,6 +76,8 @@ public class TodayRecipeSelectService {
 	 * @return
 	 */
 	public RecipeDataForm selectRecipeForRandom() {
+		//まずはランダムな数値を生成
+		//値はIDの形式であり、このランダムな数値をもとに取得処理を実行
 		return null;
 	}
 }
