@@ -269,6 +269,7 @@ public class TodayRecipeRegistService{
 	 * @param 入力された名称
 	 * @return 処理結果メッセージ
 	 */
+	@Transactional
 	public String duplicateCheck(String ｎame, String id)throws Exception {
 		
 		// messages.propertiesから対象メッセージを取得
@@ -303,28 +304,30 @@ public class TodayRecipeRegistService{
 		return message = "";
 	}
 	
-	/**
-	 * 受け取ったレシピ名からリクエストするレシピDTOを取得する
-	 * 
-	 * @param 入力されたレシピ名
-	 * @return 
-	 */
-	public RecipeDataDTO findRecipe(String recipeName) {
-		RecipeDataDTO recipeDataDTO = recipeRepository.s(recipeName);
-		
-		return recipeDataDTO;
-	}
+//	/**
+//	 * 受け取ったレシピ名からリクエストするレシピDTOを取得する
+//	 * 
+//	 * @param 入力されたレシピ名
+//	 * @return 
+//	 */
+//	@Transactional
+//	public RecipeDataDTO findRecipe(String recipeName) {
+//		RecipeDataDTO recipeDataDTO = recipeRepository.s(recipeName);
+//		
+//		return recipeDataDTO;
+//	}
 	
-	/**
-	 * 受け取ったレシピDTOに対して食材＆調味料名を取得する
-	 * 
-	 * @param 入力されたレシピ名
-	 * @return 
-	 */
-	// TODO 食材IDと食材名（調味料も同様）をどう紐づけるか
-	private RecipeDataDTO findRecipe(RecipeDataDTO recipeDataDTO) {
-		RecipeDataDTO recipeListDTO2 = recipeRepository.s(recipeDataDTO.getRecipeName());
-		
-		return recipeDataDTO;
-	}
+//	/**
+//	 * 受け取ったレシピDTOに対して食材＆調味料名を取得する
+//	 * 
+//	 * @param 入力されたレシピ名
+//	 * @return 
+//	 */
+//	// TODO 食材IDと食材名（調味料も同様）をどう紐づけるか
+//	@Transactional
+//	private RecipeDataDTO findRecipe(RecipeDataDTO recipeDataDTO) {
+//		RecipeDataDTO recipeListDTO = recipeRepository.s(recipeDataDTO.getRecipeName());
+//		
+//		return recipeDataDTO;
+//	}
 }
