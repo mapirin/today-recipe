@@ -6,7 +6,7 @@ import com.recipe.today.domain.entity.RecipeDataDTO;
 import com.recipe.today.domain.model.RecipeDataForm;
 
 @Mapper
-public interface RecipeRepository {
+public interface TodayRecipeSelectRepository {
 
 	public void i(RecipeDataDTO recipeDataDTO);
 	

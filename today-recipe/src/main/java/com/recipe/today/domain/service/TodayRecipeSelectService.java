@@ -9,14 +9,14 @@ import com.recipe.today.domain.entity.CommonMessageDTO;
 import com.recipe.today.domain.entity.RecipeDataDTO;
 import com.recipe.today.domain.model.RecipeDataForm;
 import com.recipe.today.domain.repository.IngredientsRepository;
-import com.recipe.today.domain.repository.RecipeRepository;
+import com.recipe.today.domain.repository.TodayRecipeSelectRepository;
 import com.recipe.today.domain.repository.SeasoningRepository;
 
 @Service
 public class TodayRecipeSelectService {
 
 	@Autowired
-	private RecipeRepository recipeRepository;
+	private TodayRecipeSelectRepository todayRecipeSelectRepository;
 	
 	@Autowired
 	private IngredientsRepository ingredientsRepository;
@@ -37,7 +37,7 @@ public class TodayRecipeSelectService {
 	public RecipeDataForm selectRecipe(String recipeName) {
 		RecipeDataForm recipeDataForm = new RecipeDataForm();
 		RecipeDataDTO recipeDataDto = new RecipeDataDTO();
-		recipeDataDto = recipeRepository.s(recipeName);
+		recipeDataDto = todayRecipeSelectRepository.s(recipeName);
 		
 		//TODO recipeDataDtoをrecipeDataFormにセット
 		BeanUtils.copyProperties(recipeDataForm, recipeDataDto);

@@ -15,11 +15,11 @@ public class RecipeDataForm implements Serializable{
 	private String ingredientsKey;
 	private int ingredientsId;
 	private String ingredientsName;
-	private String ingredientsOrder;
+	private String ingredientsOrder = "1";
 	private String seasoningKey;
 	private int seasoningId;
 	private String seasoningName;
-	private String seasoningOrder;
+	private String seasoningOrder = "1";
 	private String processKey;
 	private int processId;
 	private String process;

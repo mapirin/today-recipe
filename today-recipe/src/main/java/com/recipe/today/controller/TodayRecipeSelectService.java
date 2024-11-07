@@ -5,14 +5,14 @@ import org.springframework.stereotype.Service;
 
 import com.recipe.today.domain.entity.RecipeDataDTO;
 import com.recipe.today.domain.repository.IngredientsRepository;
-import com.recipe.today.domain.repository.RecipeRepository;
+import com.recipe.today.domain.repository.TodayRecipeSelectRepository;
 import com.recipe.today.domain.repository.SeasoningRepository;
 
 @Service
 public class TodayRecipeSelectService {
 
 	@Autowired
-	private RecipeRepository recipeRepository;
+	private TodayRecipeSelectRepository todayRecipeSelectRepository;
 
 	@Autowired
 	private IngredientsRepository ingredientsRepository;
@@ -27,7 +27,7 @@ public class TodayRecipeSelectService {
 	 * @return 
 	 */
 	public RecipeDataDTO findRecipe(String recipeName) {
-		RecipeDataDTO recipeDataDTO = recipeRepository.s(recipeName);
+		RecipeDataDTO recipeDataDTO = todayRecipeSelectRepository.s(recipeName);
 		
 		return recipeDataDTO;
 	}
@@ -40,7 +40,7 @@ public class TodayRecipeSelectService {
 	 */
 	// TODO 食材IDと食材名（調味料も同様）をどう紐づけるか
 	private RecipeDataDTO findRecipe(RecipeDataDTO recipeDataDTO) {
-		RecipeDataDTO recipeListDTO2 = recipeRepository.s(recipeDataDTO.getRecipeName());
+		RecipeDataDTO recipeListDTO2 = todayRecipeSelectRepository.s(recipeDataDTO.getRecipeName());
 		
 		return recipeDataDTO;
 	}

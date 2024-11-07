@@ -14,14 +14,14 @@ import com.recipe.today.domain.model.IngredientsMasterForm;
 import com.recipe.today.domain.model.RecipeDataForm;
 import com.recipe.today.domain.model.SeasoningMasterForm;
 import com.recipe.today.domain.repository.IngredientsRepository;
-import com.recipe.today.domain.repository.RecipeRepository;
+import com.recipe.today.domain.repository.TodayRecipeSelectRepository;
 import com.recipe.today.domain.repository.SeasoningRepository;
 
 @Service
 public class TodayRecipeRegistService{
 
 	@Autowired
-	private RecipeRepository recipeRepository;
+	private TodayRecipeSelectRepository todayRecipeSelectRepository;
 
 	@Autowired
 	private IngredientsRepository ingredientsRepository;
@@ -71,7 +71,7 @@ public class TodayRecipeRegistService{
 			// 登録実行
 			ingredientsRepository.i(ingredientsDataDTO);
 			seasoningRepository.i(seasoningDataDTO);
-			recipeRepository.i(recipeDataDTO);
+			todayRecipeSelectRepository.i(recipeDataDTO);
 			
 		} catch (Exception e) {
 			commonMessageDTO.setMessage("");
@@ -215,8 +215,6 @@ public class TodayRecipeRegistService{
 		recipeDataDTO.setSeasoningOrder(RecipeDataForm.getSeasoningOrder());
 		// 取得または採番値
 		recipeDataDTO.setProcessKey(RecipeDataForm.getProcessKey());
-		// 取得値
-		recipeDataDTO.setProcessId(RecipeDataForm.getProcessId());
 		// 入力値
 		recipeDataDTO.setProcess(RecipeDataForm.getProcess());
 		// 入力値
@@ -280,7 +278,7 @@ public class TodayRecipeRegistService{
 			
 			switch (id) {
 			case "1":
-				count = recipeRepository.duplicateCheck(ｎame);
+				count = todayRecipeSelectRepository.duplicateCheck(ｎame);
 				if(count > 0) {
 					return message = "";
 				}

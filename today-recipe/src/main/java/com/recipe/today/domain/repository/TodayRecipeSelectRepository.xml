@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+		"-//mybatis.org//DTD MApper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recipe.today.domain.repository.RecipeSelectRepository">
+	<select id="s" resultType="com.recipe.today.domain.entity.RecipeDataDTO">
+		SELECT
+			RD.RECIPE_ID
+			,RD.RECIPE_NAME
+			,RD.INGREDIENTS_KEY
+			,IM.INGREDIENTS_ID
+			,IM.INGREDIENTS_NAME
+			,RD.SEASONING_KEY
+			,SM.SEASONING_ID
+			,SM.SEASONING_NAME
+			,RD.PROCESS_KEY
+			,PD.PROCESS
+			,PD.COOKING_TIME
+			,RD.MOOD_KEY
+			,MM.MOOD_ID
+			,MM.MOOD_NAME
+			,RD.RECIPE_TYPE_ID
+			,TM.TYPE_NAME
+		FROM
+			RECIPE_DATA RD
+		INNER JOIN
+			INGREDIENTS_DATA ID
+		ON
+			RD.INGREDIENTS_KEY = ID.INGREDIENTS_KEY
+		INNER JOIN
+			INGREDIENTS_MASTER IM
+		ON
+			ID.INGREDIENTS_ID = IM.INGREDIENTS_ID
+		INNER JOIN
+			TYPE_MASTER TM
+		ON
+			ID.TYPE_ID = TM.TYPE_ID
+		INNER JOIN
+			SEASONING_DATA SD
+		ON
+			RD.SEASONING_KEY = SD.SEASONING_KEY
+		INNER JOIN
+			SEASONING_MASTER SM
+		ON
+			SD.SEASONING_ID = SM.SEASONING_ID
+		INNER JOIN
+			PROCESS_DATA PD
+		ON
+			RD.PROCESS_KEY = PD.PROCESS_KEY
+		INNER JOIN
+			MOOD_DATA MD
+		ON
+			RD.MOOD_KEY = MD.MOOD_KEY
+		INNER JOIN
+			MOOD_MASTER MM
+		ON
+			MD.MOOD_ID = MM.MOOD_ID
+		WHERE
+			RD.RECIPE_NAME = #recipe_name
+		AND
+			IM.DEL_FLG = '0'
+		AND
+			SM.DEL_FLG = '0'
+		AND
+			MM.DEL_FLG = '0';
+		
+	</select>
+</mapper>
