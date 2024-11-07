@@ -8,13 +8,12 @@ public class RecipeDataDTO implements ListDTO {
 	private String ingredientsKey;
 	private int ingredientsId;
 	private String ingredientsName;
-	private String ingredientsOrder;
+	private String ingredientsOrder = "1";
 	private String seasoningKey;
 	private int seasoningId;
 	private String seasoningName;
-	private String seasoningOrder;
+	private String seasoningOrder = "1";
 	private String processKey;
-	private int processId;
 	private String process;
 	private int cookingTime;
 	private String moodKey;
@@ -89,12 +88,6 @@ public class RecipeDataDTO implements ListDTO {
 	}
 	public void setProcessKey(String processKey) {
 		this.processKey = processKey;
-	}
-	public int getProcessId() {
-		return processId;
-	}
-	public void setProcessId(int processId) {
-		this.processId = processId;
 	}
 	public String getProcess() {
 		return process;
