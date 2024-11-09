@@ -4,13 +4,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import com.recipe.today.domain.entity.CommonMessageDTO;
 import com.recipe.today.domain.entity.RecipeDataDTO;
 import com.recipe.today.domain.model.RecipeDataForm;
 import com.recipe.today.domain.repository.IngredientsRepository;
-import com.recipe.today.domain.repository.TodayRecipeSelectRepository;
 import com.recipe.today.domain.repository.SeasoningRepository;
+import com.recipe.today.domain.repository.TodayRecipeSelectRepository;
 
 @Service
 public class TodayRecipeSelectService {
@@ -34,7 +35,7 @@ public class TodayRecipeSelectService {
 	 * @return
 	 */
 	@Transactional
-	public RecipeDataForm selectRecipe(String recipeName) {
+	public RecipeDataForm selectRecipeForName(String recipeName) {
 		RecipeDataForm recipeDataForm = new RecipeDataForm();
 		RecipeDataDTO recipeDataDto = new RecipeDataDTO();
 		recipeDataDto = todayRecipeSelectRepository.s(recipeName);
